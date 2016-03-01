@@ -59,7 +59,7 @@ void Mesh::CalcNormals() {
 	normalsV.resize(polygons.size());
 	for (size_t i = 0; i < nSurfaces; ++i) {
 		const Surface& srf = surfaces[i];
-		const size_t end = (size_t)srf.poly_offset + srf.poly_num;
+		const size_t end = (size_t)srf.poly_offset + srf.poly_count;
 		std::vector<VEC3> v_to_n(vertices.size());
 		std::fill(v_to_n.begin(), v_to_n.end(), VEC3{NAN, NAN, NAN });
 		// sum the poly normals sharing the same surface
@@ -127,7 +127,7 @@ void UVMaps::Setup(Surface* surfaces, size_t nSurfaces, const std::vector<Polygo
 			SurfLayer * pLayer = surfaces[i].surface_infos[j].layers;
 			while (pLayer && (pLayer->uvmap != m_nUVMaps))
 			{
-				CreateSurfaceUVs((long)pLayer->uvmap, &uvmaps[i][(long)pLayer->uvmap], surfaces[i].poly_offset, surfaces[i].poly_num, polygons);
+				CreateSurfaceUVs((long)pLayer->uvmap, &uvmaps[i][(long)pLayer->uvmap], surfaces[i].poly_offset, surfaces[i].poly_count, polygons);
 				/// pLayer->uvmap = uvmaps[i][(long)pLayer->uvmap].VBO;
 				pLayer = pLayer->next;
 			}

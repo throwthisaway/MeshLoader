@@ -167,9 +167,8 @@ typedef struct st_Surface
 		int64_t namep;					// 64bit pointer workaround
 	};
 	SIDEDNESS sidedness;
-	unsigned int poly_num;
-	// old : unsigned int * poly_list;
-	unsigned int poly_offset;
+	unsigned int poly_offset, poly_count,
+		line_offset, line_count;
 	// GL specific things...
 	PTR(const char *, program_name)
 	SERIALIZER
