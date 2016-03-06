@@ -75,16 +75,16 @@ void Image::Relocate(long size, void * p)
 	RELOCATEPTR(size, _CHAR,p,path);
 }
 
-void Surfaces::Relocate(long size, void * p)
-{
-	if (!p)
-		return;
-	RELOCATEPTR(size, Surface,p,m_Surface);	
-	for (int i = 0;i<m_nSurfaces;i++)
-	{
-		m_Surface[i].Relocate(size,p);
-	}
-}
+//void Surfaces::Relocate(long size, void * p)
+//{
+//	if (!p)
+//		return;
+//	RELOCATEPTR(size, Surface,p,m_Surface);	
+//	for (int i = 0;i<m_nSurfaces;i++)
+//	{
+//		m_Surface[i].Relocate(size,p);
+//	}
+//}
 
 void _UVMap::Relocate(long size, void * p)
 {	

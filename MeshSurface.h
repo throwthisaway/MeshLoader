@@ -25,6 +25,8 @@
 #define SLYR "SLYR"
 #define SRFC "SRFC"
 #define LINE "LINE"
+#define LAYR "LAYR"
+#define SECT "SECT"
 #define TAG(t) ((t[3] << 24) | (t[2] << 16) | (t[1] << 8)  | t[0])
 
 #define VERTICESPERPOLY 3
@@ -167,8 +169,9 @@ typedef struct st_Surface
 		int64_t namep;					// 64bit pointer workaround
 	};
 	SIDEDNESS sidedness;
-	unsigned int poly_offset, poly_count,
-		line_offset, line_count;
+
+	//unsigned int poly_offset, poly_count;
+	//	line_offset, line_count;
 	// GL specific things...
 	PTR(const char *, program_name)
 	SERIALIZER
@@ -176,6 +179,7 @@ typedef struct st_Surface
 	/*char *comment;*/
 }Surface;
 
+// TODO:: get rid of this
 typedef struct st_Surfaces
 {	
 	long m_nSurfaces;
@@ -250,3 +254,23 @@ typedef struct _st_UVMap
 	~_st_UVMap() { CleanUp(); }*/
 	SERIALIZER
 }_UVMap;
+
+struct Layer2 {
+#ifdef _TAG
+	long tag;
+#endif
+	struct {
+		float x, y, z;
+	}pivot;
+	struct Sections {
+		unsigned int n;
+		struct Section {
+#ifdef _TAG
+			long tag;
+#endif
+			unsigned int index, start, count;
+		};
+		PTR(Section*, sections);
+	}poly, line;
+	SERIALIZER
+};
