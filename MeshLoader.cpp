@@ -76,8 +76,9 @@ namespace {
 void LoadMesh(char* data, size_t len, Mesh& mesh) {
 	size_t pos = 0;
 	char * ptr = data;
-	Chunk& chunk = reinterpret_cast<Chunk&>(*ptr);
-	ptr += sizeof(chunk);
+	Chunk chunk;
+	memcpy(&chunk, ptr, sizeof(Chunk));
+	ptr += sizeof(Chunk);
 	while ((unsigned long)(ptr - data) < len) {
 		if (chunk.tag == TAG(POLS))
 			LoadPolygons(ptr, chunk.elements, mesh);
@@ -94,8 +95,8 @@ void LoadMesh(char* data, size_t len, Mesh& mesh) {
 		else if (chunk.tag == TAG(LAYR))
 			LoadLayers2(ptr, chunk.size, chunk.elements, mesh);
 		ptr += chunk.size;
-		chunk = reinterpret_cast<Chunk&>(*ptr);
-		ptr += sizeof(chunk);
+		memcpy(&chunk, ptr, sizeof(Chunk));
+		ptr += sizeof(Chunk);
 	}
 	mesh.Setup();
 }
