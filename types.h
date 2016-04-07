@@ -1,4 +1,5 @@
 #pragma once
+#include "compatibility.h"
 #include <vector>
 #undef max
 #include <gsl.h>
