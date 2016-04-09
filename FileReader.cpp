@@ -10,7 +10,7 @@ bool CFileReader::Exist(_LPCTSTR fname)
 #else
 	struct stat buffer;
 #endif
-	return !_tstat(fname, &buffer);
+	return !_stat(fname, &buffer);
 }
 
 CFileReader * CFileReader::Open(_LPCTSTR fname, long mode)
@@ -23,11 +23,11 @@ CFileReader * CFileReader::Open(_LPCTSTR fname, long mode)
 		return NULL;
 	if (mode & FILE_BIN)
 		sm |= 'b'<<8;	
-	else if (mode & FILE__TEXT)
+	else if (mode & FILE_TEXT)
 		sm |= 't'<<8;	
 	else 
 		sm |= 'b'<<8;	 
-	if (!(f = _tfopen(fname, (_LPCTSTR)&sm)))
+	if (!(f = fopen(fname, (_LPCTSTR)&sm)))
 		throw CFileNotFoundException(fname);
 		//return NULL;	
 	return new CFileReader(f, fname);
@@ -46,7 +46,7 @@ bool CFileReader::GetLine(_LPTSTR data, long count)
 		return false;
 	if (!IsOpened())
 		throw new CFileNotOpenException(fname);
-	if (_fgetts(data, count, f))
+	if (fgets(data, count, f))
 		return true;
 	return false;
 }

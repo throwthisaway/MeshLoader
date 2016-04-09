@@ -32,11 +32,7 @@ void CLog::Write(_LPCTSTR fmt, ...)
 	for (int i=0;i<loggers.size();i++)
 	{
 		// TODO: time & date
-		#ifdef WIN32		
-		_vsntprintf(buf, sizeof(buf), fmt, args);
-		#else
 		vsnprintf(buf, sizeof(buf), fmt, args);
-		#endif
 		loggers[i]->Write(buf);	
 	}	
     va_end(args);

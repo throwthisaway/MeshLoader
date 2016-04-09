@@ -14,7 +14,7 @@ namespace IO
 #define FILE_REWRITE 0x2L
 #define FILE_APPEND 0x4L
 #define FILE_BIN 0x8L
-#define FILE__TEXT 0x10L
+#define FILE_TEXT 0x10L
 
 
 typedef enum eSEEK_ORIGIN{SEEK_BEGIN, SEEK_BOTTOM, SEEK_POS}SEEK_ORIGIN;
@@ -40,7 +40,7 @@ public:
 	static void GetCWD(_LPTSTR buffer, int size)
 	{
 		#ifdef WIN32
-			_tgetcwd(buffer, size); 
+			_getcwd(buffer, size); 
 		#else
 			getcwd(buffer, size);
 		#endif
@@ -48,7 +48,7 @@ public:
 	static void ChDir(_LPCTSTR buffer)
 	{
 	#ifdef WIN32  
-		_tchdir(buffer);
+		_chdir(buffer);
 	#else
 		chdir(buffer); 
 	#endif
@@ -56,7 +56,7 @@ public:
 	static void MkDir(_LPCTSTR  buffer)
     {
 	#ifdef WIN32  
-		_tmkdir(buffer);
+		_mkdir(buffer);
 	#elif __EMSCRIPTEN__
 
 	#else

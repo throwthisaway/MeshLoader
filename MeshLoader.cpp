@@ -82,7 +82,7 @@ void LoadMesh(char* data, size_t len, Mesh& mesh) {
 	while ((unsigned long)(ptr - data) < len) {
 		if (chunk.tag == TAG(POLS))
 			LoadPolygons(ptr, chunk.elements, mesh);
-		else if (chunk.tag == TAG(PNTS))
+		else if (chunk.tag == TAG(VERT))
 			LoadVertices(ptr, chunk.elements, mesh);
 		else if (chunk.tag == TAG(SURF))
 			LoadSurfaces(ptr, chunk.size, chunk.elements, mesh);

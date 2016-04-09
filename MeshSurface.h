@@ -10,7 +10,7 @@
 //#endif
 
 #define CURRENT_OBJECT 0
-#define PNTS "PNTS"
+#define VERT "VERT"
 #define POLS "POLS"
 #define SURF "SURF"
 

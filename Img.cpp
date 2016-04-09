@@ -23,7 +23,7 @@ namespace Img
 				pf = PF_GREYSCALE8;
 				break;
 			default:
-				Log::CLog::Write(_T("CImg: Unhandled bit depth...\r\n"));
+				Log::CLog::Write(__T("CImg: Unhandled bit depth...\r\n"));
 				return ID_IMG_UBPP;
 			}
 			return ID_IMG_OK;

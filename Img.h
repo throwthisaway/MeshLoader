@@ -13,7 +13,7 @@ namespace Img
 		unsigned int width,height;
 		unsigned char bpp;
 		PIXELFORMAT pf;
-		void Cleanup() { delete [] data; data = NULL; };
+		void Cleanup() { delete [] data; data = nullptr; };
 		ImgData() : data(nullptr) {};
 		~ImgData() { Cleanup(); };
 	};

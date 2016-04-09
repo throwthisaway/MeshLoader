@@ -1,5 +1,6 @@
 #pragma once
 #include "Deserialize.h"
+#include "compatibility.h"
 #include <functional>
 
 typedef enum eIMAGE_TYPE{STILL_IMAGE,SEQUENCE_IMAGE}IMAGE_TYPE;

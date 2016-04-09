@@ -13,8 +13,10 @@
 #define _CSCMP strcmp 
 #define _CHAR char 
 #define __T(x) x
+#ifndef WIN32
 #define _fgetts fgets
 #define _tstat stat
+#endif
 #endif
 #define _LPCTSTR _LPCSTR
 #define _LPTSTR _LPSTR
