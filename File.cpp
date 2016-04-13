@@ -71,7 +71,11 @@ long CFile::Size(void)
 bool CFile::Exists(const char * fname)
 {
     FILE * f = NULL;
+#ifdef WIN32
+	fopen_s(&f, fname, "rb");
+#else
     f = fopen(fname, "rb");
+#endif
     if (f)
         fclose(f);
     return f != NULL;

@@ -30,7 +30,6 @@ namespace Img
 			Log::CLog::Write("CTga: Incorrect header size...\r\n");
 			return ID_TGA_FLEN;
 		}
-		image.Cleanup();
 		int result = ParseHeader();
 		if(result != ID_TGA_OK)
 		{
@@ -70,7 +69,7 @@ namespace Img
 			int result = PixelFormat(image.bpp, image.pf);
 			if(result != ID_TGA_OK)
 				return result;
-			image.size = (image.bpp >> 3) * image.height * image.width;
+			image.data.resize((image.bpp >> 3) * image.height * image.width);
 		}
 		return ID_TGA_OK;
 	}
@@ -80,15 +79,8 @@ namespace Img
 			unsigned char colorbuffer[4];*/
 			unsigned char chunkheader;
 			const int bytesperpixel = image.bpp >> 3;
-			try
-			{
-				image.data = new unsigned char[image.size];
-			}catch (std::bad_alloc)
-			{
-				Log::CLog::Write("CTga: Memory (data)allocation failed...\r\n");
-				return ID_TGA_AMEM;
-			}
-			unsigned char *p = image.data;
+
+			unsigned char *p = &image.data.front();
 			do
 			{
 				if (_fr->Read(&chunkheader, 1) != 1)
@@ -200,21 +192,13 @@ namespace Img
 				//	}
 				//}
 			}
-			while (p - image.data < image.size);
+			while (p - &image.data.front() < image.data.size());
 			return ID_TGA_OK;
 	}
 	int CTga::LoaduTGA()
 	{
 		const int bytesperpixel = image.bpp >> 3;
-		try
-		{
-			image.data = new unsigned char[image.size];
-		}catch (std::bad_alloc)
-		{
-			Log::CLog::Write("CTga: Memory (data)allocation failed...\r\n");
-			return ID_TGA_AMEM;
-		}
-		if (_fr->Read(image.data, image.size) != 1)
+		if (_fr->Read(&image.data.front(), image.data.size()) != 1)
 		{
 			Log::CLog::Write("CTga: Insufficient bytes in file...\r\n");
 			return ID_TGA_FLEN;
@@ -222,7 +206,7 @@ namespace Img
 		if ((bytesperpixel == 3) || (bytesperpixel == 4))
 		{
 			//swap byte order: BGR->RGB
-			for (unsigned long i=0;i<image.size;i+=bytesperpixel)
+			for (unsigned long i=0;i< image.data.size();i+=bytesperpixel)
 			{
 				if (image.data[i] != image.data[i+2])
 					image.data[i] ^= image.data[i+2] ^= image.data[i] ^= image.data[i+2];

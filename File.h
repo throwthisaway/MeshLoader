@@ -79,7 +79,7 @@ public:
 	void Seek(SEEK_ORIGIN origin, long offset);
 	long Pos(void);
 	long Size(void);
-	static bool Exists(_LPCTSTR fname);
+	static bool Exists(const char * fname);
 
 };
 

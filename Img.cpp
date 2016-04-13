@@ -2,6 +2,16 @@
 #include "Log.h"
 namespace Img
 {
+	void ImgData::ChangeComponentOrder() {
+		if (bpp<24) return;
+		auto inc = (bpp == 24) ? 3 : 4;
+		// BGR<->RGB, BGRA<->RGBA
+		for (size_t i = 0; i < data.size(); i += inc)
+			std::swap(data[i], data[i + 2]);
+		if (bpp == 24) pf = (pf == PF_BGR) ? PF_RGB : PF_BGR;
+		if (bpp == 32) pf = (pf == PF_BGRA) ? PF_RGBA : PF_BGRA;
+	}
+
 	CImg::CImg(void)
 	{
 	}

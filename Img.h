@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vector>
 namespace Img
 {
 	#define ID_IMG_OK ID_OK
@@ -8,14 +8,11 @@ namespace Img
 	
 	struct ImgData
 	{
-		unsigned char * data;
-		unsigned int size;
-		unsigned int width,height;
+		std::vector<unsigned char> data;
+		unsigned int width, height;
 		unsigned char bpp;
 		PIXELFORMAT pf;
-		void Cleanup() { delete [] data; data = nullptr; };
-		ImgData() : data(nullptr) {};
-		~ImgData() { Cleanup(); };
+		void ChangeComponentOrder();
 	};
 
 	class CImg

@@ -7,10 +7,12 @@ bool CFileReader::Exist(_LPCTSTR fname)
 {
 #ifdef WIN32
 	struct _stat64i32 buffer;
+	return !_stat(fname, &buffer);
 #else
 	struct stat buffer;
+	return !stat(fname, &buffer);
 #endif
-	return !_stat(fname, &buffer);
+
 }
 
 CFileReader * CFileReader::Open(_LPCTSTR fname, long mode)
@@ -27,7 +29,11 @@ CFileReader * CFileReader::Open(_LPCTSTR fname, long mode)
 		sm |= 't'<<8;	
 	else 
 		sm |= 'b'<<8;	 
+#ifdef WIN32
+	if (fopen_s(&f, fname, (_LPCTSTR)&sm))
+#else
 	if (!(f = fopen(fname, (_LPCTSTR)&sm)))
+#endif
 		throw CFileNotFoundException(fname);
 		//return NULL;	
 	return new CFileReader(f, fname);
