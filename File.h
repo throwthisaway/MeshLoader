@@ -1,12 +1,15 @@
 #pragma once
 #include <stdio.h>
-#ifdef WIN32
+#include "compatibility.h"
+#ifdef PLATFORM_WIN
 #include <direct.h>
+#elif defined(PLATFORM_MAC_OS)
+#include <sys/stat.h>
+#include <unistd.h>
 #else
 #include <unistd.h>
 #endif
 #include <string>
-#include "compatibility.h"
 
 namespace IO
 {
@@ -39,7 +42,7 @@ class CFileSystem
 public:
 	static void GetCWD(_LPTSTR buffer, int size)
 	{
-		#ifdef WIN32
+		#ifdef PLATFORM_WIN
 			_getcwd(buffer, size); 
 		#else
 			getcwd(buffer, size);
@@ -47,7 +50,7 @@ public:
 	};
 	static void ChDir(_LPCTSTR buffer)
 	{
-	#ifdef WIN32  
+	#ifdef PLATFORM_WIN
 		_chdir(buffer);
 	#else
 		chdir(buffer); 
@@ -55,12 +58,14 @@ public:
 	};
 	static void MkDir(_LPCTSTR  buffer)
     {
-	#ifdef WIN32  
+	#ifdef PLATFORM_WIN
 		_mkdir(buffer);
-	#elif __EMSCRIPTEN__
-
+	#elif defined(PLATFORM_EMSCRIPTEN)
+		// ...
+	#elif defined(PLATFORM_MAC_OS)
+		mkdir(buffer, 0644);
 	#else
-		mkdir(buffer); 
+		mkdir(buffer);
 	#endif
 	};
 };

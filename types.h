@@ -1,10 +1,9 @@
 #pragma once
 #include "compatibility.h"
 #include <vector>
-#undef max
-#include <gsl.h>
+#include <gsl/gsl>
 #ifdef GLM
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 //using namespace glm;
 #define VEC3 glm::vec3
 #define VEC2 glm::vec2

@@ -2,6 +2,7 @@
 #include "MeshLoader.h"
 #include <streambuf>
 #include <istream>
+
 using namespace MeshLoader;
 namespace {
 	struct Chunk {
@@ -23,7 +24,7 @@ namespace {
 	void LoadSurfaces(char * ptr, size_t size, size_t elements, Mesh& mesh) {
 		char * dest = new char[size];
 		memcpy(dest, ptr, size);
-		mesh.surfaces = gsl::as_span(new(dest)Surface[elements], elements);
+		mesh.surfaces = gsl::make_span(new(dest)Surface[elements], elements);
 		for (size_t i = 0; i < elements; ++i)
 			mesh.surfaces[i].Relocate(size, mesh.surfaces.data());
 	}
@@ -67,14 +68,13 @@ namespace {
 	void LoadLayers2(char * ptr, size_t size, size_t elements, Mesh& mesh) {
 		char * dest = new char[size];
 		memcpy(dest, ptr, size);
-		mesh.layers = gsl::as_span(new(dest)Layer2[elements], elements);
+		mesh.layers = gsl::make_span(new(dest)Layer2[elements], elements);
 		for (size_t i = 0; i < elements; ++i)
 			mesh.layers[i].Relocate(size, mesh.layers.data());
 	}
 
 }
 void LoadMesh(char* data, size_t len, Mesh& mesh) {
-	size_t pos = 0;
 	char * ptr = data;
 	Chunk chunk;
 	memcpy(&chunk, ptr, sizeof(Chunk));

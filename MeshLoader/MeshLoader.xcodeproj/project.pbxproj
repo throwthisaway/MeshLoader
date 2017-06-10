@@ -1,0 +1,337 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD72036E1EEC0E1F00B2C914 /* compatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203581EEC0E1F00B2C914 /* compatibility.h */; };
+		BD72036F1EEC0E1F00B2C914 /* Deserialize.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203591EEC0E1F00B2C914 /* Deserialize.h */; };
+		BD7203701EEC0E1F00B2C914 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72035A1EEC0E1F00B2C914 /* File.cpp */; };
+		BD7203711EEC0E1F00B2C914 /* File.h in Headers */ = {isa = PBXBuildFile; fileRef = BD72035B1EEC0E1F00B2C914 /* File.h */; };
+		BD7203721EEC0E1F00B2C914 /* FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72035C1EEC0E1F00B2C914 /* FileReader.cpp */; };
+		BD7203731EEC0E1F00B2C914 /* FileReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BD72035D1EEC0E1F00B2C914 /* FileReader.h */; };
+		BD7203741EEC0E1F00B2C914 /* Image.h in Headers */ = {isa = PBXBuildFile; fileRef = BD72035E1EEC0E1F00B2C914 /* Image.h */; };
+		BD7203751EEC0E1F00B2C914 /* Img.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72035F1EEC0E1F00B2C914 /* Img.cpp */; };
+		BD7203761EEC0E1F00B2C914 /* Img.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203601EEC0E1F00B2C914 /* Img.h */; };
+		BD7203771EEC0E1F00B2C914 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD7203611EEC0E1F00B2C914 /* Log.cpp */; };
+		BD7203781EEC0E1F00B2C914 /* Log.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203621EEC0E1F00B2C914 /* Log.h */; };
+		BD7203791EEC0E1F00B2C914 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203631EEC0E1F00B2C914 /* Logger.h */; };
+		BD72037A1EEC0E1F00B2C914 /* MeshLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD7203641EEC0E1F00B2C914 /* MeshLoader.cpp */; };
+		BD72037B1EEC0E1F00B2C914 /* MeshLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203651EEC0E1F00B2C914 /* MeshLoader.h */; };
+		BD72037C1EEC0E1F00B2C914 /* MeshSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD7203661EEC0E1F00B2C914 /* MeshSurface.cpp */; };
+		BD72037D1EEC0E1F00B2C914 /* MeshSurface.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203671EEC0E1F00B2C914 /* MeshSurface.h */; };
+		BD72037E1EEC0E1F00B2C914 /* pch.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203681EEC0E1F00B2C914 /* pch.h */; };
+		BD7203801EEC0E1F00B2C914 /* Tga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72036A1EEC0E1F00B2C914 /* Tga.cpp */; };
+		BD7203811EEC0E1F00B2C914 /* Tga.h in Headers */ = {isa = PBXBuildFile; fileRef = BD72036B1EEC0E1F00B2C914 /* Tga.h */; };
+		BD7203821EEC0E1F00B2C914 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72036C1EEC0E1F00B2C914 /* types.cpp */; };
+		BD7203831EEC0E1F00B2C914 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = BD72036D1EEC0E1F00B2C914 /* types.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BD7203511EEC0E0C00B2C914 /* libMeshLoader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMeshLoader.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD7203581EEC0E1F00B2C914 /* compatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = compatibility.h; path = ../compatibility.h; sourceTree = "<group>"; };
+		BD7203591EEC0E1F00B2C914 /* Deserialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Deserialize.h; path = ../Deserialize.h; sourceTree = "<group>"; };
+		BD72035A1EEC0E1F00B2C914 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = File.cpp; path = ../File.cpp; sourceTree = "<group>"; };
+		BD72035B1EEC0E1F00B2C914 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = File.h; path = ../File.h; sourceTree = "<group>"; };
+		BD72035C1EEC0E1F00B2C914 /* FileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileReader.cpp; path = ../FileReader.cpp; sourceTree = "<group>"; };
+		BD72035D1EEC0E1F00B2C914 /* FileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileReader.h; path = ../FileReader.h; sourceTree = "<group>"; };
+		BD72035E1EEC0E1F00B2C914 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = ../Image.h; sourceTree = "<group>"; };
+		BD72035F1EEC0E1F00B2C914 /* Img.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Img.cpp; path = ../Img.cpp; sourceTree = "<group>"; };
+		BD7203601EEC0E1F00B2C914 /* Img.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Img.h; path = ../Img.h; sourceTree = "<group>"; };
+		BD7203611EEC0E1F00B2C914 /* Log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Log.cpp; path = ../Log.cpp; sourceTree = "<group>"; };
+		BD7203621EEC0E1F00B2C914 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = ../Log.h; sourceTree = "<group>"; };
+		BD7203631EEC0E1F00B2C914 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logger.h; path = ../Logger.h; sourceTree = "<group>"; };
+		BD7203641EEC0E1F00B2C914 /* MeshLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshLoader.cpp; path = ../MeshLoader.cpp; sourceTree = "<group>"; };
+		BD7203651EEC0E1F00B2C914 /* MeshLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeshLoader.h; path = ../MeshLoader.h; sourceTree = "<group>"; };
+		BD7203661EEC0E1F00B2C914 /* MeshSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshSurface.cpp; path = ../MeshSurface.cpp; sourceTree = "<group>"; };
+		BD7203671EEC0E1F00B2C914 /* MeshSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeshSurface.h; path = ../MeshSurface.h; sourceTree = "<group>"; };
+		BD7203681EEC0E1F00B2C914 /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pch.h; path = ../pch.h; sourceTree = "<group>"; };
+		BD72036A1EEC0E1F00B2C914 /* Tga.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tga.cpp; path = ../Tga.cpp; sourceTree = "<group>"; };
+		BD72036B1EEC0E1F00B2C914 /* Tga.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tga.h; path = ../Tga.h; sourceTree = "<group>"; };
+		BD72036C1EEC0E1F00B2C914 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = types.cpp; path = ../types.cpp; sourceTree = "<group>"; };
+		BD72036D1EEC0E1F00B2C914 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = types.h; path = ../types.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD72034E1EEC0E0C00B2C914 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD7203481EEC0E0C00B2C914 = {
+			isa = PBXGroup;
+			children = (
+				BD7203581EEC0E1F00B2C914 /* compatibility.h */,
+				BD7203591EEC0E1F00B2C914 /* Deserialize.h */,
+				BD72035A1EEC0E1F00B2C914 /* File.cpp */,
+				BD72035B1EEC0E1F00B2C914 /* File.h */,
+				BD72035C1EEC0E1F00B2C914 /* FileReader.cpp */,
+				BD72035D1EEC0E1F00B2C914 /* FileReader.h */,
+				BD72035E1EEC0E1F00B2C914 /* Image.h */,
+				BD72035F1EEC0E1F00B2C914 /* Img.cpp */,
+				BD7203601EEC0E1F00B2C914 /* Img.h */,
+				BD7203611EEC0E1F00B2C914 /* Log.cpp */,
+				BD7203621EEC0E1F00B2C914 /* Log.h */,
+				BD7203631EEC0E1F00B2C914 /* Logger.h */,
+				BD7203641EEC0E1F00B2C914 /* MeshLoader.cpp */,
+				BD7203651EEC0E1F00B2C914 /* MeshLoader.h */,
+				BD7203661EEC0E1F00B2C914 /* MeshSurface.cpp */,
+				BD7203671EEC0E1F00B2C914 /* MeshSurface.h */,
+				BD7203681EEC0E1F00B2C914 /* pch.h */,
+				BD72036A1EEC0E1F00B2C914 /* Tga.cpp */,
+				BD72036B1EEC0E1F00B2C914 /* Tga.h */,
+				BD72036C1EEC0E1F00B2C914 /* types.cpp */,
+				BD72036D1EEC0E1F00B2C914 /* types.h */,
+				BD7203521EEC0E0C00B2C914 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BD7203521EEC0E0C00B2C914 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD7203511EEC0E0C00B2C914 /* libMeshLoader.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BD72034F1EEC0E0C00B2C914 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD72037E1EEC0E1F00B2C914 /* pch.h in Headers */,
+				BD7203761EEC0E1F00B2C914 /* Img.h in Headers */,
+				BD72036F1EEC0E1F00B2C914 /* Deserialize.h in Headers */,
+				BD7203811EEC0E1F00B2C914 /* Tga.h in Headers */,
+				BD72037B1EEC0E1F00B2C914 /* MeshLoader.h in Headers */,
+				BD72037D1EEC0E1F00B2C914 /* MeshSurface.h in Headers */,
+				BD7203731EEC0E1F00B2C914 /* FileReader.h in Headers */,
+				BD7203831EEC0E1F00B2C914 /* types.h in Headers */,
+				BD7203781EEC0E1F00B2C914 /* Log.h in Headers */,
+				BD7203711EEC0E1F00B2C914 /* File.h in Headers */,
+				BD72036E1EEC0E1F00B2C914 /* compatibility.h in Headers */,
+				BD7203791EEC0E1F00B2C914 /* Logger.h in Headers */,
+				BD7203741EEC0E1F00B2C914 /* Image.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BD7203501EEC0E0C00B2C914 /* MeshLoader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD7203551EEC0E0C00B2C914 /* Build configuration list for PBXNativeTarget "MeshLoader" */;
+			buildPhases = (
+				BD72034D1EEC0E0C00B2C914 /* Sources */,
+				BD72034E1EEC0E0C00B2C914 /* Frameworks */,
+				BD72034F1EEC0E0C00B2C914 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MeshLoader;
+			productName = MeshLoader;
+			productReference = BD7203511EEC0E0C00B2C914 /* libMeshLoader.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD7203491EEC0E0C00B2C914 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "András Kovács";
+				TargetAttributes = {
+					BD7203501EEC0E0C00B2C914 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BD72034C1EEC0E0C00B2C914 /* Build configuration list for PBXProject "MeshLoader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BD7203481EEC0E0C00B2C914;
+			productRefGroup = BD7203521EEC0E0C00B2C914 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD7203501EEC0E0C00B2C914 /* MeshLoader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD72034D1EEC0E0C00B2C914 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD7203751EEC0E1F00B2C914 /* Img.cpp in Sources */,
+				BD7203721EEC0E1F00B2C914 /* FileReader.cpp in Sources */,
+				BD72037C1EEC0E1F00B2C914 /* MeshSurface.cpp in Sources */,
+				BD7203801EEC0E1F00B2C914 /* Tga.cpp in Sources */,
+				BD72037A1EEC0E1F00B2C914 /* MeshLoader.cpp in Sources */,
+				BD7203771EEC0E1F00B2C914 /* Log.cpp in Sources */,
+				BD7203701EEC0E1F00B2C914 /* File.cpp in Sources */,
+				BD7203821EEC0E1F00B2C914 /* types.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BD7203531EEC0E0C00B2C914 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BD7203541EEC0E0C00B2C914 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BD7203561EEC0E0C00B2C914 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../3rdparty/GSL/include\"",
+					"\"$(SRCROOT)/../../3rdparty/glm\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BD7203571EEC0E0C00B2C914 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../3rdparty/GSL/include\"",
+					"\"$(SRCROOT)/../../3rdparty/glm\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD72034C1EEC0E0C00B2C914 /* Build configuration list for PBXProject "MeshLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD7203531EEC0E0C00B2C914 /* Debug */,
+				BD7203541EEC0E0C00B2C914 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD7203551EEC0E0C00B2C914 /* Build configuration list for PBXNativeTarget "MeshLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD7203561EEC0E0C00B2C914 /* Debug */,
+				BD7203571EEC0E0C00B2C914 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BD7203491EEC0E0C00B2C914 /* Project object */;
+}
