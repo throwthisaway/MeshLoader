@@ -5,70 +5,72 @@
 #ifdef GLM
 #include <glm/glm.hpp>
 //using namespace glm;
-#define VEC3 glm::vec3
-#define VEC2 glm::vec2
+using vec3_t = glm::vec3;
+using vec2_t = glm::vec2;
 #else
 #include <DirectXMath.h>
 using namespace DirectX;
-#define VEC3 DirectX::XMFLOAT3
-#define VEC2 DirectX::XMFLOAT2
+using vec3_t = DirectX::XMFLOAT3;
+using vec2_t = DirectX::XMFLOAT2;
 #endif
 #include "MeshSurface.h"
 namespace MeshLoader {
 	struct Polygon {
-		unsigned long v[VERTICESPERPOLY];
+		union {
+			index_t v[VERTICESPERPOLY];
+			struct {
+				uint32_t v1, v2, v3;
+			};
+		};
 	};
 	struct PolyLine {
-		unsigned long v1, v2;
+		union {
+			index_t v[2];
+		};
+		struct {
+			index_t v1, v2;
+		};
 	};
 	struct Normal {
-		VEC3 n[VERTICESPERPOLY];
+		Normal() {}
+		union {
+			vec3_t n[VERTICESPERPOLY];
+			struct {
+				vec3_t n1, n2, n3;
+			};
+		};
 	};
 
 	struct DUV {
-		unsigned long p, v;
-		VEC2 uv;
+		vec2_t uv;
+		index_t p;
+		uint8_t v;
 	};
 
-	//struct Layer {
-	//	struct Pivot {
-	//		float x, y, z;
-	//	}pivot;
-	//	struct SurfSection {
-	//		size_t index, start, count;
-	//	};
-	//	std::vector<SurfSection> polySections, lineSections;
-	//};
-
-	class UVMaps {
+	struct UVMaps {
 		typedef struct st_SurfaceUVMap
 		{
-			long n;
-			float * uv;
-			st_SurfaceUVMap() : uv(nullptr), n(0) {}
+			float * uv = nullptr;
+			index_t n = 0u;
 			~st_SurfaceUVMap() { delete[] uv; }
 		}SurfaceUVMap;
-		void CreateSurfaceUVs(long n, SurfaceUVMap * uvmap, unsigned int  offset, unsigned int num, const std::vector<Polygon>& polygons);
-	public:
+		void CreateSurfaceUVs(index_t n, SurfaceUVMap * uvmap, index_t offset, index_t count, const gsl::span<Polygon, gsl::dynamic_range>& polygons);
+		_UVMap * uv = nullptr;
+		_DVMap * dv = nullptr;
+		index_t count = 0u;
 		std::vector<std::vector<SurfaceUVMap>> uvmaps;
-
-		size_t m_nUVMaps;
-		_UVMap * m_UVMap;
-		_DVMap * m_DVMap;
-		void Setup(gsl::span<Layer2>, gsl::span<Surface>, const std::vector<Polygon>&);
-		void CleanUp(void);
-		UVMaps() :m_UVMap(nullptr), m_nUVMaps(0), m_DVMap(nullptr) {}
+		void Setup(gsl::span<Layer>&, gsl::span<Surface>&, const gsl::span<Polygon, gsl::dynamic_range>&);
+		void CleanUp();
 		~UVMaps() { CleanUp(); }
 	};
 
 	struct Mesh {
-		std::vector<Polygon> polygons;
-		std::vector<VEC3> normalsP;
-		std::vector<VEC3> vertices;
+		gsl::span<Polygon, gsl::dynamic_range> polygons;
+		gsl::span<PolyLine, gsl::dynamic_range> lines;
+		gsl::span<vec3_t, gsl::dynamic_range> vertices;
+		std::vector<vec3_t> normalsP;
 		std::vector<Normal> normalsV;
-		std::vector<PolyLine> lines;
-		//std::vector<Layer> layers;
-		gsl::span<Layer2, gsl::dynamic_range> layers;
+		gsl::span<Layer, gsl::dynamic_range> layers;
 		gsl::span<Surface, gsl::dynamic_range> surfaces;
 		UVMaps uvs;
 

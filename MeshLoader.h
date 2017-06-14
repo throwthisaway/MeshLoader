@@ -1,4 +1,4 @@
 #pragma once
 #include "types.h"
 
-void LoadMesh(char* data, size_t len, MeshLoader::Mesh& mesh);
+void LoadMesh(uint8_t* data, size_t len, MeshLoader::Mesh& mesh);

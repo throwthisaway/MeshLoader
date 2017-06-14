@@ -5,98 +5,66 @@
 
 using namespace MeshLoader;
 namespace {
+	constexpr size_t Tag(const char* t) {
+		return (t[3] << 24) | (t[2] << 16) | (t[1] << 8) | t[0];
+	}
+
 	struct Chunk {
-		unsigned long tag, size, elements;
+		uint32_t tag, size, count;
 	};
 
-	void LoadPolygons(char * ptr, size_t elements, Mesh& mesh) {
-		Polygon* p = reinterpret_cast<Polygon*>(ptr);
-		mesh.polygons.assign(p, p + elements);
+	inline void LoadPolygons(uint8_t* ptr, size_t count, Mesh& mesh) {
+		mesh.polygons = gsl::make_span(reinterpret_cast<Polygon*>(ptr), count);
 	}
-	void LoadLines(char * ptr, size_t elements, Mesh& mesh) {
-		PolyLine* p = reinterpret_cast<PolyLine*>(ptr);
-		mesh.lines.assign(p, p + elements);
+	inline void LoadLines(uint8_t* ptr, size_t count, Mesh& mesh) {
+		mesh.lines = gsl::make_span(reinterpret_cast<PolyLine*>(ptr), count);
 	}
-	void LoadVertices(char * ptr, size_t elements, Mesh& mesh) {
-		VEC3* p = reinterpret_cast<VEC3*>(ptr);
-		mesh.vertices.assign(p, p + elements);
+	inline void LoadVertices(uint8_t* ptr, size_t count, Mesh& mesh) {
+		mesh.vertices = gsl::make_span(reinterpret_cast<vec3_t*>(ptr), count);
 	}
-	void LoadSurfaces(char * ptr, size_t size, size_t elements, Mesh& mesh) {
-		char * dest = new char[size];
-		memcpy(dest, ptr, size);
-		mesh.surfaces = gsl::make_span(new(dest)Surface[elements], elements);
+	inline void LoadSurfaces(uint8_t* ptr, size_t size, size_t elements, Mesh& mesh) {
+		mesh.surfaces = gsl::make_span(reinterpret_cast<Surface*>(ptr), elements);
 		for (size_t i = 0; i < elements; ++i)
 			mesh.surfaces[i].Relocate(size, mesh.surfaces.data());
 	}
-	void LoadUVs(char * ptr, size_t size, size_t elements, Mesh& mesh) {
-		mesh.uvs.m_nUVMaps = elements;
-		char * dest = new char[size];
-		memcpy(dest, ptr, size);
-		mesh.uvs.m_UVMap = new(dest)_UVMap[elements];
+	inline void LoadUVs(uint8_t* ptr, size_t size, size_t elements, Mesh& mesh) {
+		mesh.uvs.count = elements;
+		mesh.uvs.uv = reinterpret_cast<_UVMap*>(ptr);
 		for (size_t i = 0; i < elements; ++i)
-			mesh.uvs.m_UVMap[i].Relocate(size, mesh.uvs.m_UVMap);
+			mesh.uvs.uv[i].Relocate(size, mesh.uvs.uv);
 	}
-	void LoadDUVs(char * ptr, size_t size, size_t elements, Mesh& mesh) {
-		char * dest = new char[size];
-		memcpy(dest, ptr, size);
-		mesh.uvs.m_DVMap = new(dest)_DVMap[elements];
+	inline void LoadDUVs(uint8_t* ptr, size_t size, size_t elements, Mesh& mesh) {
+		mesh.uvs.dv = reinterpret_cast<_DVMap*>(ptr);
 		for (size_t i = 0; i < elements; ++i)
-			mesh.uvs.m_DVMap[i].Relocate(size, mesh.uvs.m_DVMap);
+			mesh.uvs.dv[i].Relocate(size, mesh.uvs.dv);
 	}
-	//void LoadLayers(char * ptr, size_t size, size_t elements, Mesh& mesh) {
-	//	struct membuf : std::streambuf
-	//	{
-	//		membuf(char* begin, char* end) {
-	//			setg(begin, begin, end);
-	//		}
-	//	};
-	//	membuf sbuf(ptr, ptr + sizeof(size));
-	//	std::istream in(&sbuf);
-	//	mesh.layers.reserve(elements);
-	//	for (size_t i = 0; i < elements; ++i) {
-	//		mesh.layers.push_back({});
-	//		auto& l = mesh.layers.back();
-	//		in >> l.pivot.x; in >> l.pivot.y; in >> l.pivot.z;
-	//		size_t size;
-	//		in >> size;
-	//		l.polySections.reserve(size);
-	//		for (size_t j = 0; j < size; ++j) {
-	//			// TODO::
-	//		}
-	//	}
-	//}
-	void LoadLayers2(char * ptr, size_t size, size_t elements, Mesh& mesh) {
-		char * dest = new char[size];
-		memcpy(dest, ptr, size);
-		mesh.layers = gsl::make_span(new(dest)Layer2[elements], elements);
+	inline void LoadLayers(uint8_t* ptr, size_t size, size_t elements, Mesh& mesh) {
+		mesh.layers = gsl::make_span(reinterpret_cast<Layer*>(elements), elements);
 		for (size_t i = 0; i < elements; ++i)
 			mesh.layers[i].Relocate(size, mesh.layers.data());
 	}
-
 }
-void LoadMesh(char* data, size_t len, Mesh& mesh) {
-	char * ptr = data;
-	Chunk chunk;
-	memcpy(&chunk, ptr, sizeof(Chunk));
-	ptr += sizeof(Chunk);
-	while ((unsigned long)(ptr - data) < len) {
-		if (chunk.tag == TAG(POLS))
-			LoadPolygons(ptr, chunk.elements, mesh);
-		else if (chunk.tag == TAG(VERT))
-			LoadVertices(ptr, chunk.elements, mesh);
-		else if (chunk.tag == TAG(SURF))
-			LoadSurfaces(ptr, chunk.size, chunk.elements, mesh);
-		else if (chunk.tag == TAG(VMP2))
-			LoadUVs(ptr, chunk.size, chunk.elements, mesh);
-		else if (chunk.tag == TAG(DVMP))
-			LoadDUVs(ptr, chunk.size, chunk.elements, mesh);
-		else if (chunk.tag == TAG(LINE))
-			LoadLines(ptr, chunk.elements, mesh);
-		else if (chunk.tag == TAG(LAYR))
-			LoadLayers2(ptr, chunk.size, chunk.elements, mesh);
-		ptr += chunk.size;
-		memcpy(&chunk, ptr, sizeof(Chunk));
+void LoadMesh(uint8_t* data, size_t len, Mesh& mesh) {
+	uint8_t* ptr = data;
+	while (1) {
+		Chunk* chunk = reinterpret_cast<Chunk*>(ptr);
 		ptr += sizeof(Chunk);
+		if ((ptrdiff_t)(ptr - data) >= len) break;
+		if (chunk->tag == Tag(POLS))
+			LoadPolygons(ptr, chunk->count, mesh);
+		else if (chunk->tag == Tag(VERT))
+			LoadVertices(ptr, chunk->count, mesh);
+		else if (chunk->tag == Tag(SURF))
+			LoadSurfaces(ptr, chunk->size, chunk->count, mesh);
+		else if (chunk->tag == Tag(VMP2))
+			LoadUVs(ptr, chunk->size, chunk->count, mesh);
+		else if (chunk->tag == Tag(DVMP))
+			LoadDUVs(ptr, chunk->size, chunk->count, mesh);
+		else if (chunk->tag == Tag(LINE))
+			LoadLines(ptr, chunk->count, mesh);
+		else if (chunk->tag == Tag(LAYR))
+			LoadLayers(ptr, chunk->size, chunk->count, mesh);
+		ptr += chunk->size;
 	}
 	mesh.Setup();
 }
