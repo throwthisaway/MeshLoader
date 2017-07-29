@@ -40,7 +40,7 @@ namespace MeshLoader {
 		}
 		struct st_Less : public std::less<const Image*>
 		{
-			bool operator() (const Image* img1, const Image* img2)
+			bool operator() (const Image* img1, const Image* img2) const
 			{
 				return _CSCMP(img1->path, img2->path) < 0;
 			}

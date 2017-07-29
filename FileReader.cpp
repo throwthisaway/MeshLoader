@@ -29,7 +29,7 @@ CFileReader * CFileReader::Open(_LPCTSTR fname, long mode)
 		sm |= 't'<<8;	
 	else 
 		sm |= 'b'<<8;	 
-#ifdef WIN32
+#ifdef PLATFORM_WIN
 	if (fopen_s(&f, fname, (_LPCTSTR)&sm))
 #else
 	if (!(f = fopen(fname, (_LPCTSTR)&sm)))
@@ -39,11 +39,11 @@ CFileReader * CFileReader::Open(_LPCTSTR fname, long mode)
 	return new CFileReader(f, fname);
 }
 
-long CFileReader::Read(void * data, long count)
+size_t CFileReader::Read(void * data, long count)
 {
 	if (!IsOpened())
 		throw new CFileNotOpenException(fname);
-	return (long)fread(data, count, 1, f);
+	return ::fread(data, count, 1, f);
 }
 
 bool CFileReader::GetLine(_LPTSTR data, long count)
@@ -58,7 +58,7 @@ bool CFileReader::GetLine(_LPTSTR data, long count)
 }
 bool CFileReader::Eof(void)
 {
-	return feof(f);
+	return !!feof(f);
 }
 
 }

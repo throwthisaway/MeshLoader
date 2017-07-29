@@ -69,7 +69,7 @@ namespace Img
 			int result = PixelFormat(image.bpp, image.pf);
 			if(result != ID_TGA_OK)
 				return result;
-			image.data.resize((image.bpp >> 3) * image.height * image.width);
+			image.data = std::unique_ptr<uint8_t>(new uint8_t[image.GetSize()]);
 		}
 		return ID_TGA_OK;
 	}
@@ -80,9 +80,8 @@ namespace Img
 			unsigned char chunkheader;
 			const int bytesperpixel = image.bpp >> 3;
 
-			unsigned char *p = &image.data.front();
-			do
-			{
+			auto p = image.data.get();
+			do {
 				if (_fr->Read(&chunkheader, 1) != 1)
 				{
 					Log::CLog::Write("CTga(c): Compressed data error...\r\n");
@@ -192,13 +191,13 @@ namespace Img
 				//	}
 				//}
 			}
-			while (p - &image.data.front() < image.data.size());
+			while (p - image.data.get() < image.GetSize());
 			return ID_TGA_OK;
 	}
 	int CTga::LoaduTGA()
 	{
 		const int bytesperpixel = image.bpp >> 3;
-		if (_fr->Read(&image.data.front(), image.data.size()) != 1)
+		if (_fr->Read(image.data.get(), image.GetSize()) != 1)
 		{
 			Log::CLog::Write("CTga: Insufficient bytes in file...\r\n");
 			return ID_TGA_FLEN;
@@ -206,10 +205,10 @@ namespace Img
 		if ((bytesperpixel == 3) || (bytesperpixel == 4))
 		{
 			//swap byte order: BGR->RGB
-			for (unsigned long i=0;i< image.data.size();i+=bytesperpixel)
+			for (unsigned long i=0;i< image.GetSize();i+=bytesperpixel)
 			{
-				if (image.data[i] != image.data[i+2])
-					image.data[i] ^= image.data[i+2] ^= image.data[i] ^= image.data[i+2];
+				if (image.data.get()[i] != image.data.get()[i+2])
+					image.data.get()[i] ^= image.data.get()[i+2] ^= image.data.get()[i] ^= image.data.get()[i+2];
 			}
 			//swap byte order: BGR->RGB
 		}

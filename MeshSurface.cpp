@@ -2,7 +2,7 @@
 #include "MeshSurface.h"
 #include <new>
 namespace MeshLoader {
-	void Surface::Relocate(index_t size, void * p)
+	void Surface::Relocate(size_t size, void * p)
 	{
 		if (!p)
 			return;
@@ -24,7 +24,7 @@ namespace MeshLoader {
 		}
 	}
 
-	void RefMap::Relocate(index_t size, void * p)
+	void RefMap::Relocate(size_t size, void * p)
 	{
 		if (!p)
 			return;
@@ -33,7 +33,7 @@ namespace MeshLoader {
 			map->Relocate(size, p);
 	}
 
-	void SurfInfo::Relocate(index_t size, void * p)
+	void SurfInfo::Relocate(size_t size, void * p)
 	{
 		if (!p)
 			return;
@@ -45,7 +45,7 @@ namespace MeshLoader {
 			next->Relocate(size,p);*/
 	}
 
-	void SurfLayer::Relocate(index_t size, void * p)
+	void SurfLayer::Relocate(size_t size, void * p)
 	{
 		if (!p)
 			return;
@@ -60,7 +60,7 @@ namespace MeshLoader {
 			next->Relocate(size, p);
 	}
 
-	void UVMap::Relocate(index_t size, void * p)
+	void UVMap::Relocate(size_t size, void * p)
 	{
 		if (!p)
 			return;
@@ -68,7 +68,7 @@ namespace MeshLoader {
 		//((long long)ptr != size)? ptr = new((type*)((long long)base+(long long)ptr)) type: NULL	
 	}
 
-	void Image::Relocate(index_t size, void * p)
+	void Image::Relocate(size_t size, void * p)
 	{
 		if (!p)
 			return;
@@ -86,7 +86,7 @@ namespace MeshLoader {
 	//	}
 	//}
 
-	void _UVMap::Relocate(index_t size, void * p)
+	void _UVMap::Relocate(size_t size, void * p)
 	{
 		if (!p)
 			return;
@@ -94,7 +94,7 @@ namespace MeshLoader {
 		//((long long)ptr != size)? ptr = new((type*)((long long)base+(long long)ptr)) type: NULL
 	}
 
-	void _DVMap::Relocate(index_t size, void * p)
+	void _DVMap::Relocate(size_t size, void * p)
 	{
 		if (!p)
 			return;

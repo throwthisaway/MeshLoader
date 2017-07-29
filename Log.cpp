@@ -2,21 +2,10 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-namespace Log
-{
-vector<CLogger*> CLog::loggers;
-
-CLog::CLog()
-{
-
-}
-
-CLog::~CLog()
-{
-
-}
+namespace Log {
 #define BUF_SIZE 32768+1
 static _CHAR buf[BUF_SIZE];
+vector<CLogger*> CLog::loggers;
 void CLog::Cleanup(void)
 {
 	while (loggers.size()>0)

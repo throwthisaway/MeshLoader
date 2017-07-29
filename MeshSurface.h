@@ -27,13 +27,16 @@
 #define LINE "LINE"
 #define LAYR "LAYR"
 #define SECT "SECT"
-#define TAG(t) ((t[3] << 24) | (t[2] << 16) | (t[1] << 8)  | t[0])
+//#define TAG(t) ((t[3] << 24) | (t[2] << 16) | (t[1] << 8)  | t[0])
 
 #define VERTICESPERPOLY 3u
 #define VERTICESPERLINE 2u
 #define UVCOORDS 2u
 #define MAP_TYPE_COUNT 10u
 namespace MeshLoader {
+	constexpr tag_t Tag(const char* t) {
+		return (t[3] << 24) | (t[2] << 16) | (t[1] << 8) | t[0];
+	}
 	typedef enum eMAP_TYPE { COLOR_MAP, LUMINOSITY_MAP, DIFFUSE_MAP, SPECULARITY_MAP, GLOSSINESS_MAP, REFLECTION_MAP, TRANSPARENCY_MAP, REFRACTION_INDEX_MAP, TRANSLUCENCY_MAP, BUMP_MAP, NUM_MAP_TYPE }MAP_TYPE;
 	typedef enum eREF_OPT { BACKDROP, RAY_TRACING_BACKDROP, SPHERICAL, RAY_TRACING_SPHERICAL }REF_OPT;
 	typedef enum eLAYER_TYPE { IMAGE_LAYER, PROCEDURAL_LAYER, GRADIENT_LAYER }LAYER_TYPE;
@@ -100,7 +103,7 @@ namespace MeshLoader {
 			float color[3];
 			struct Color {
 				float r, g, b;
-			};
+			}stColor;
 		};
 		SIDEDNESS sidedness;
 		SERIALIZER
