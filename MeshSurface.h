@@ -101,7 +101,7 @@ namespace MeshLoader {
 		union
 		{
 			float color[3];
-			struct Color {
+			struct {
 				float r, g, b;
 			}stColor;
 		};
@@ -116,17 +116,7 @@ namespace MeshLoader {
 		SERIALIZER
 #ifdef __cplusplus
 	public:
-		void CleanUp() {
-			// Remember: this address is not pointing to an array of surfaces, it points to a "neutral" char array
-			//DEL(m_Surface);
-			free(surface); surface = nullptr;
-			//TODO:
-			//// Call dtors:
-			//for (unsigned int i=0;i<m_nSurfaces;i++)
-			//	delete m_Surfaces->m_Surface[i];
-			//delete [] m_Surfaces;	// Remember: this address is not pointing to an array of surfaces, it Vertices to a "neutral" char array
-			//TODO:
-		}
+		void CleanUp();
 		~Surfaces() { CleanUp(); };
 #endif
 	};
