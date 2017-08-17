@@ -1,6 +1,7 @@
 #include "pch_.h"
 #include "MeshSurface.h"
 #include <new>
+#include <stdlib.h>
 namespace MeshLoader {
 	void Surface::Relocate(size_t size, void * p)
 	{
@@ -22,6 +23,17 @@ namespace MeshLoader {
 			for (unsigned int i = 0; i < NUM_MAP_TYPE; i++)
 				surface_infos[i].Relocate(size, p);
 		}
+	}
+	void Surfaces::CleanUp() {
+		// Remember: this address is not pointing to an array of surfaces, it points to a "neutral" char array
+		//DEL(m_Surface);
+		free(surface); surface = nullptr;
+		//TODO:
+		//// Call dtors:
+		//for (unsigned int i=0;i<m_nSurfaces;i++)
+		//	delete m_Surfaces->m_Surface[i];
+		//delete [] m_Surfaces;	// Remember: this address is not pointing to an array of surfaces, it Vertices to a "neutral" char array
+		//TODO:
 	}
 
 	void RefMap::Relocate(size_t size, void * p)
