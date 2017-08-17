@@ -17,18 +17,18 @@ using vec2_t = DirectX::XMFLOAT2;
 namespace MeshLoader {
 	struct Polygon {
 		union {
-			index_t v[VERTICESPERPOLY];
+			poly_t v[VERTICESPERPOLY];
 			struct {
-				uint32_t v1, v2, v3;
+				poly_t v1, v2, v3;
 			};
 		};
 	};
 	struct PolyLine {
 		union {
-			index_t v[2];
-		};
-		struct {
-			index_t v1, v2;
+			poly_t v[2];
+			struct {
+				poly_t v1, v2;
+			};
 		};
 	};
 	struct Normal {
@@ -61,7 +61,7 @@ namespace MeshLoader {
 		std::vector<std::vector<SurfaceUVMap>> uvmaps;
 		void Setup(gsl::span<Layer>&, gsl::span<Surface>&, const gsl::span<Polygon, gsl::dynamic_range>&);
 		void CleanUp();
-		~UVMaps() { CleanUp(); }
+		~UVMaps();
 	};
 
 	struct Mesh {
@@ -75,6 +75,8 @@ namespace MeshLoader {
 		UVMaps uvs;
 
 		void Setup();
+		void Cleanup();
+		~Mesh();
 	private:
 		void CalcNormals();
 		std::vector<std::vector<size_t>> VtoP() const;

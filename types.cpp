@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "pch_.h"
 #include "types.h"
 #include <cmath>
 #include <stdlib.h>
@@ -159,5 +159,17 @@ namespace MeshLoader {
 				*uv = pDV->v;
 			}
 		}
+	}
+	UVMaps::~UVMaps() { CleanUp(); }
+
+	Mesh::~Mesh() { Cleanup(); }
+	void Mesh::Cleanup() {
+		delete[] polygons.data();
+		delete[] lines.data();
+		delete[] vertices.data();
+		delete[] normalsP.data();
+		delete[] normalsV.data();
+		delete[] layers.data();
+		delete[] surfaces.data();
 	}
 }

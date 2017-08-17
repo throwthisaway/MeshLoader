@@ -6,5 +6,6 @@
 namespace MeshLoader {
 	using tag_t = uint32_t;
 	using index_t = uint32_t;
+	using poly_t = uint16_t;
 }
 #define _TAG MeshLoader::tag_t tag;
