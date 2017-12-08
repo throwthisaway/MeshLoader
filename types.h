@@ -54,29 +54,28 @@ namespace MeshLoader {
 			index_t n = 0u;
 			~st_SurfaceUVMap() { delete[] uv; }
 		}SurfaceUVMap;
-		void CreateSurfaceUVs(index_t n, SurfaceUVMap * uvmap, index_t offset, index_t count, const gsl::span<Polygon, gsl::dynamic_range>& polygons);
-		_UVMap * uv = nullptr;
-		_DVMap * dv = nullptr;
+		void CreateSurfaceUVs(index_t n, SurfaceUVMap * uvmap, index_t offset, index_t count, const gsl::span<const Polygon, gsl::dynamic_range>& polygons);
+		const _UVMap * uv = nullptr;
+		const _DVMap * dv = nullptr;
 		index_t count = 0u;
 		std::vector<std::vector<SurfaceUVMap>> uvmaps;
-		void Setup(gsl::span<Layer>&, gsl::span<Surface>&, const gsl::span<Polygon, gsl::dynamic_range>&);
-		void CleanUp();
-		~UVMaps();
+		void Setup(gsl::span<const Layer>&, gsl::span<const Surface>&, const gsl::span<const Polygon, gsl::dynamic_range>&);
 	};
 
 	struct Mesh {
-		gsl::span<Polygon, gsl::dynamic_range> polygons;
-		gsl::span<PolyLine, gsl::dynamic_range> lines;
-		gsl::span<vec3_t, gsl::dynamic_range> vertices;
+		void Setup();
+
+		gsl::span<const Polygon, gsl::dynamic_range> polygons;
+		gsl::span<const PolyLine, gsl::dynamic_range> lines;
+		gsl::span<const vec3_t, gsl::dynamic_range> vertices;
 		std::vector<vec3_t> normalsP;
 		std::vector<Normal> normalsV;
-		gsl::span<Layer, gsl::dynamic_range> layers;
-		gsl::span<Surface, gsl::dynamic_range> surfaces;
+		gsl::span<const Layer, gsl::dynamic_range> layers;
+		gsl::span<const Surface, gsl::dynamic_range> surfaces;
 		UVMaps uvs;
 
-		void Setup();
-		void Cleanup();
-		~Mesh();
+		std::vector<uint8_t> data;
+
 	private:
 		void CalcNormals();
 		std::vector<std::vector<size_t>> VtoP() const;

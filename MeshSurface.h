@@ -148,7 +148,7 @@ namespace MeshLoader {
 		struct Sections {
 			struct Section {
 				_TAG
-				index_t index, offset, count;
+				index_t index/*surface index*/, offset /*polygon offset*/, count /*polygon count*/;
 			}*sections;
 			index_t count;
 		}poly, line;

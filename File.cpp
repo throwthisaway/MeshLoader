@@ -2,37 +2,23 @@
 namespace IO
 {
 
-CFile::CFile(void) : f(NULL), fname(NULL)
-{
-}
+CFile::CFile(FILE * f, _LPCTSTR fname) : f(f), fname(fname) {}
 
-CFile::CFile(FILE * f, const char * fname)
-{
-	this->f = f;
-	this->fname = fname;
-}
-
-CFile::~CFile(void)
-{
+CFile::~CFile(void) {
 	Close();
 }
 
-bool CFile::IsOpened(void)
-{
+bool CFile::IsOpened(void) {
 	if (!f)
 		return false;
 	return true;
 }
 
-void CFile::Close(void)
-{
-	if (!IsOpened())
-		return;
-	fclose(f);
+void CFile::Close(void) {
+	if (IsOpened()) fclose(f);
 }
 
-void CFile::Seek(SEEK_ORIGIN origin, long offset)
-{
+void CFile::Seek(SEEK_ORIGIN origin, long offset) {
 	if (!IsOpened())
 		throw new CFileNotOpenException(fname);
 	int _origin;
@@ -50,15 +36,13 @@ void CFile::Seek(SEEK_ORIGIN origin, long offset)
 	}
 	fseek(f, offset, _origin);
 }
-long CFile::Pos(void)
-{
+long CFile::Pos(void) {
 	if (!IsOpened())
 		throw new CFileNotOpenException(fname);
 	return ftell(f);
 }
 
-long CFile::Size(void)
-{
+long CFile::Size(void) {
 	if (!IsOpened())
 		throw new CFileNotOpenException(fname);
 	// Hack:
@@ -68,8 +52,7 @@ long CFile::Size(void)
 	Seek(SEEK_BEGIN, 0);
 	return ret;
 }
-bool CFile::Exists(const char * fname)
-{
+bool CFile::Exists(const char * fname) {
     FILE * f = NULL;
 #ifdef PLATFORM_WIN
 	fopen_s(&f, fname, "rb");

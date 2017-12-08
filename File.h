@@ -11,8 +11,7 @@
 #endif
 #include <string>
 
-namespace IO
-{
+namespace IO {
 #define FILE_READ 0x1L
 #define FILE_REWRITE 0x2L
 #define FILE_APPEND 0x4L
@@ -21,13 +20,11 @@ namespace IO
 
 
 typedef enum eSEEK_ORIGIN{SEEK_BEGIN, SEEK_BOTTOM, SEEK_POS}SEEK_ORIGIN;
-class CFileExceptionBase
-{
+class CFileExceptionBase {
 public:
 	std::string msg;
 };
-class CFileNotOpenException : public CFileExceptionBase
-{
+class CFileNotOpenException : public CFileExceptionBase {
 public:
 	CFileNotOpenException(_LPCTSTR fname) { this->msg = __T("File not open: "); this->msg += fname; };
 };
@@ -37,27 +34,23 @@ public:
 	CFileNotFoundException(_LPCTSTR fname) { this->msg = __T("File not found: "); this->msg += fname; };
 };
 
-class CFileSystem
-{
+class CFileSystem {
 public:
-	static void GetCWD(_LPTSTR buffer, int size)
-	{
+	static void GetCWD(_LPTSTR buffer, int size) {
 		#ifdef PLATFORM_WIN
-			_getcwd(buffer, size); 
+			_getcwd(buffer, size);
 		#else
 			getcwd(buffer, size);
 		#endif
 	};
-	static void ChDir(_LPCTSTR buffer)
-	{
+	static void ChDir(_LPCTSTR buffer) {
 	#ifdef PLATFORM_WIN
 		_chdir(buffer);
 	#else
 		chdir(buffer); 
 	#endif
 	};
-	static void MkDir(_LPCTSTR  buffer)
-    {
+	static void MkDir(_LPCTSTR  buffer) {
 	#ifdef PLATFORM_WIN
 		_mkdir(buffer);
 	#elif defined(PLATFORM_EMSCRIPTEN)
@@ -70,14 +63,13 @@ public:
 	};
 };
 
-class CFile
-{
+class CFile {
 	CFile(void);
 protected:
-	FILE * f;
+	FILE * f = nullptr;
 	_LPCTSTR fname;
 	CFile(FILE * f, _LPCTSTR fname);
-    ~CFile();
+	virtual ~CFile();
 public:	
 	void Close(void);
 	bool IsOpened(void);

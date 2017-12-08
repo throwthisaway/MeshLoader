@@ -100,13 +100,7 @@ namespace MeshLoader {
 		return res;
 	}
 
-	void UVMaps::CleanUp(void)
-	{
-		delete[] uv;
-		delete[] dv;
-	}
-
-	void UVMaps::Setup(gsl::span<Layer>& layers, gsl::span<Surface>& surfaces, const gsl::span<Polygon, gsl::dynamic_range>& polygons) {
+	void UVMaps::Setup(gsl::span<const Layer>& layers, gsl::span<const Surface>& surfaces, const gsl::span<const Polygon, gsl::dynamic_range>& polygons) {
 		if (!count) return;
 		uvmaps.resize(surfaces.size());
 		for (auto& uvmap : uvmaps) {
@@ -126,7 +120,7 @@ namespace MeshLoader {
 		}
 	}
 
-	void UVMaps::CreateSurfaceUVs(index_t n, SurfaceUVMap * uvmap, index_t offset, index_t count, const gsl::span<Polygon, gsl::dynamic_range>& polygons) {
+	void UVMaps::CreateSurfaceUVs(index_t n, SurfaceUVMap * uvmap, index_t offset, index_t count, const gsl::span<const Polygon, gsl::dynamic_range>& polygons) {
 		if (uvmap->uv) return;
 		assert(n < count);
 		size_t size;
@@ -159,17 +153,5 @@ namespace MeshLoader {
 				*uv = pDV->v;
 			}
 		}
-	}
-	UVMaps::~UVMaps() { CleanUp(); }
-
-	Mesh::~Mesh() { Cleanup(); }
-	void Mesh::Cleanup() {
-		delete[] polygons.data();
-		delete[] lines.data();
-		delete[] vertices.data();
-		delete[] normalsP.data();
-		delete[] normalsV.data();
-		delete[] layers.data();
-		delete[] surfaces.data();
 	}
 }
