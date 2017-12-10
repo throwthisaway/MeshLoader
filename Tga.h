@@ -29,9 +29,11 @@ namespace Img
 		ImgData image;
 		int LoaduTGA(void);
 		int LoadcTGA(void);
-		int ParseHeader(void);
-
+		static int LoaduTGA(uint8_t* p, size_t length, ImgData& image);
+		static int LoadcTGA(uint8_t* p, size_t length, ImgData& image);
+		static int ParseHeader(uint8_t* header, ImgData& image);
 	public:
+		static int Decode(uint8_t* p, size_t length, ImgData& image);
 		virtual ImgData& GetImage(void);
 		virtual int Load(const char * fname);
 		virtual void Cleanup(void);

@@ -21,7 +21,7 @@ namespace Img
 		virtual ImgData& GetImage(void) = 0;
 		virtual int Load(const char * fname) = 0;
 		virtual void Cleanup(void) = 0;
-		int PixelFormat(int bpp, PIXELFORMAT& pf);
+		static int PixelFormat(int bpp, PIXELFORMAT& pf);
 		CImg(void);
 		virtual ~CImg(void);
 	};
