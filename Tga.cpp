@@ -90,12 +90,13 @@ namespace Img
 	}
 	int CTga::LoaduTGA(uint8_t* p, size_t length, ImgData& image) {
 		const int bytesperpixel = image.bpp >> 3;
-		if (length != image.GetSize()) {
+		if (length < image.GetSize()) {
 			Log::CLog::Write("CTga: Insufficient bytes in file...\r\n");
 			return ID_TGA_FLEN;
 		}
 		if ((bytesperpixel == 3) || (bytesperpixel == 4)) {
 			//swap byte order: BGR->RGB
+			image.bpp = (bytesperpixel == 3) ? PF_RGB : PF_RGBA;
 			for (unsigned long i = 0; i< image.GetSize(); i += bytesperpixel) {
 				if (image.data.get()[i] != image.data.get()[i + 2])
 					image.data.get()[i] ^= image.data.get()[i + 2] ^= image.data.get()[i] ^= image.data.get()[i + 2];

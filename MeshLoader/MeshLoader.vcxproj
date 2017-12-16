@@ -148,6 +148,7 @@
     <ClInclude Include="..\Logger.h" />
     <ClInclude Include="..\MeshLoader.h" />
     <ClInclude Include="..\MeshSurface.h" />
+    <ClInclude Include="..\StringUtil.h" />
     <ClInclude Include="..\Tga.h" />
     <ClInclude Include="..\types.h" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClCompile Include="..\Log.cpp" />
     <ClCompile Include="..\MeshLoader.cpp" />
     <ClCompile Include="..\MeshSurface.cpp" />
+    <ClCompile Include="..\StringUtil.cpp" />
     <ClCompile Include="..\Tga.cpp" />
     <ClCompile Include="..\types.cpp" />
   </ItemGroup>
