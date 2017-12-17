@@ -1,28 +1,22 @@
 #pragma once
 #include <memory>
-namespace Img
-{
+namespace Img {
 	#define ID_IMG_OK ID_OK
-	#define ID_IMG_UBPP 0x3006
-	typedef enum {PF_UNKNOWN, PF_GREYSCALE8, PF_RGB, PF_RGBA, PF_BGR, PF_BGRA}PIXELFORMAT;
+	enum class PixelFormat : uint8_t {Unknown, Greyscale8, RGB8, RGBA8, BGR8, BGRA8};
 	
 	struct ImgData {
 		std::unique_ptr<uint8_t> data;
-		unsigned int width, height;
-		unsigned char bpp;
-		size_t GetSize() const { return width * height * (bpp >> 3); }
-		PIXELFORMAT pf;
+		uint16_t width, height;
+		uint8_t bytesPerPixel;
+		PixelFormat pf;
+		inline size_t CalcSize() const { return width * height * bytesPerPixel; }
 		void ChangeComponentOrder();
 	};
 
-	class CImg
-	{
+	class CImg {
 	public:
 		virtual ImgData& GetImage(void) = 0;
 		virtual int Load(const char * fname) = 0;
 		virtual void Cleanup(void) = 0;
-		static int PixelFormat(int bpp, PIXELFORMAT& pf);
-		CImg(void);
-		virtual ~CImg(void);
 	};
 }
