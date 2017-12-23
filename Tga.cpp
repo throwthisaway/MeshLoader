@@ -41,27 +41,46 @@ namespace Img {
 			return TgaDecodeResult::Ok;
 		}
 
-		Img::TgaDecodeResult LoaduTGA(uint8_t* p, size_t length, ImgData& image) {
+		Img::TgaDecodeResult LoaduTGA(uint8_t* p, size_t length, ImgData& image, bool expand24To32) {
 			const auto size = image.CalcSize();
 			if (length - sizeof(Header) < size) {
 				Log::CLog::Write("LoaduTGA: Insufficient size...\r\n");
 				return Img::TgaDecodeResult::InsufficientSize;
 			}
-			image.data = std::unique_ptr<uint8_t>(new uint8_t[size]);
-			memcpy(image.data.get(), p + sizeof(Header), size);
+			if (expand24To32 && image.bytesPerPixel == 3) {
+				image.bytesPerPixel = 4;
+				image.pf = (image.pf == PixelFormat::RGB8) ? PixelFormat::RGBA8 : PixelFormat::BGRA8;
+				const auto size = image.CalcSize();
+				image.data = std::unique_ptr<uint8_t>(new uint8_t[size]);
+				for (size_t i = 0; i < length;) {
+					*(image.data.get() + i++) = *(p++);
+					*(image.data.get() + i++) = *(p++);
+					*(image.data.get() + i++) = *(p++);
+					*(image.data.get() + i++) = 255;
+				}
+			} else {
+				image.data = std::unique_ptr<uint8_t>(new uint8_t[size]);
+				memcpy(image.data.get(), p + sizeof(Header), size);
+			}
 			return Img::TgaDecodeResult::Ok;
 		}
 
-		Img::TgaDecodeResult LoadcTGA(uint8_t* p, ImgData& image) {
+		Img::TgaDecodeResult LoadcTGA(uint8_t* p, ImgData& image, bool expand24To32) {
 			assert(image.bytesPerPixel == 3 || image.bytesPerPixel == 4 || image.bytesPerPixel == 1);
 			p += sizeof(Header);
+			const auto origBytesPerPixel = image.bytesPerPixel;
+			if (expand24To32 && image.bytesPerPixel == 3) {
+				image.bytesPerPixel = 4;
+				image.pf = (image.pf == PixelFormat::RGB8) ? PixelFormat::RGBA8 : PixelFormat::BGRA8;
+			}
 			const auto size = image.CalcSize();
+			image.data = std::unique_ptr<uint8_t>(new uint8_t[size]);
 			auto dst = image.data.get();
 			do {
 				auto chunkheader = *(p++);
 				auto col = dst;
 				if (chunkheader & 0x80) {
-					switch (image.bytesPerPixel) {
+					switch (origBytesPerPixel) {
 					case 4:
 						*(dst++) = *(p++);
 					case 3:
@@ -70,9 +89,10 @@ namespace Img {
 					case 1:
 						*(dst++) = *(p++);
 					}
+					if (origBytesPerPixel != image.bytesPerPixel) *(dst++) = 255;
 					const size_t n = chunkheader & 0x7f;
 					for (size_t i = 1; i < n; ++i) {
-						switch (image.bytesPerPixel)
+						switch (origBytesPerPixel)
 						{
 						case 4:
 							*(dst++) = *(col + 3);
@@ -82,20 +102,30 @@ namespace Img {
 						case 1:
 							*(dst++) = *col;
 						}
+						if (origBytesPerPixel != image.bytesPerPixel) *(dst++) = 255;
 					}
 				}
 				else {
-					auto n = (chunkheader + 1) * image.bytesPerPixel;
-					memcpy(dst, p, n);
-					p += n;
-					dst += n;
+					if (origBytesPerPixel != image.bytesPerPixel) {
+						for (size_t i = 0; i < chunkheader + 1; ++i) {
+							*(dst++) = *(p++);
+							*(dst++) = *(p++);
+							*(dst++) = *(p++);
+							*(dst++) = 255;
+						}
+					} else {
+						auto n = (chunkheader + 1) * origBytesPerPixel;
+						memcpy(dst, p, n);
+						p += n;
+						dst += n;
+					}
 				}
 			} while (image.data.get() + size < dst);
 			return Img::TgaDecodeResult::Ok;
 		}
 	}
 
-	TgaDecodeResult DecodeTGA(uint8_t* p, size_t length, ImgData& image) {
+	TgaDecodeResult DecodeTGA(uint8_t* p, size_t length, ImgData& image, bool expand24To32) {
 		Header *header = (Header*)p;
 		TgaDecodeResult result = ParseHeader(*header, image);
 		if (result != TgaDecodeResult::Ok) {
@@ -103,9 +133,9 @@ namespace Img {
 			return result;
 		}
 		if (header->datatypecode == 10 /*RLE RGB*/ || header->datatypecode == 11 /*RLE BW*/)
-			return LoadcTGA(p, image);
+			return LoadcTGA(p, image, expand24To32);
 		if (header->datatypecode == 2/*Uncompressed RGB*/ || header->datatypecode == 3/*Uncompressed BW*/)
-			return LoaduTGA(p, length, image);
+			return LoaduTGA(p, length, image, expand24To32);
 		Log::CLog::Write("DecodeTga: Unsupported file format...\r\n");
 		return TgaDecodeResult::UnsupportedDataType;
 	}
