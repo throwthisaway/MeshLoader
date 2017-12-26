@@ -125,6 +125,7 @@ namespace MeshLoader {
 		assert(n < count);
 		size_t size;
 		uvmap->uv = new float[size = (UVCOORDS * VERTICESPERPOLY * count)];
+		uvmap->n = count;
 		// TODO:: owns?? better yet gsl::view
 		gsl::span<UV, gsl::dynamic_range> uvMap = gsl::make_span(uv[n].uv, (size_t)uv[n].count);
 		// UVs

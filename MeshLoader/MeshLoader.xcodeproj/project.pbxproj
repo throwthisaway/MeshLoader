@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD0E83591FEFF81A005A2F8A /* StringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD0E83571FEFF81A005A2F8A /* StringUtil.cpp */; };
+		BD0E835A1FEFF81A005A2F8A /* StringUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = BD0E83581FEFF81A005A2F8A /* StringUtil.h */; };
 		BD72036E1EEC0E1F00B2C914 /* compatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203581EEC0E1F00B2C914 /* compatibility.h */; };
 		BD72036F1EEC0E1F00B2C914 /* Deserialize.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203591EEC0E1F00B2C914 /* Deserialize.h */; };
 		BD7203701EEC0E1F00B2C914 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72035A1EEC0E1F00B2C914 /* File.cpp */; };
@@ -23,7 +25,6 @@
 		BD72037B1EEC0E1F00B2C914 /* MeshLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203651EEC0E1F00B2C914 /* MeshLoader.h */; };
 		BD72037C1EEC0E1F00B2C914 /* MeshSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD7203661EEC0E1F00B2C914 /* MeshSurface.cpp */; };
 		BD72037D1EEC0E1F00B2C914 /* MeshSurface.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203671EEC0E1F00B2C914 /* MeshSurface.h */; };
-		BD72037E1EEC0E1F00B2C914 /* pch.h in Headers */ = {isa = PBXBuildFile; fileRef = BD7203681EEC0E1F00B2C914 /* pch.h */; };
 		BD7203801EEC0E1F00B2C914 /* Tga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72036A1EEC0E1F00B2C914 /* Tga.cpp */; };
 		BD7203811EEC0E1F00B2C914 /* Tga.h in Headers */ = {isa = PBXBuildFile; fileRef = BD72036B1EEC0E1F00B2C914 /* Tga.h */; };
 		BD7203821EEC0E1F00B2C914 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD72036C1EEC0E1F00B2C914 /* types.cpp */; };
@@ -31,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD0E83571FEFF81A005A2F8A /* StringUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringUtil.cpp; path = ../StringUtil.cpp; sourceTree = "<group>"; };
+		BD0E83581FEFF81A005A2F8A /* StringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringUtil.h; path = ../StringUtil.h; sourceTree = "<group>"; };
 		BD7203511EEC0E0C00B2C914 /* libMeshLoader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMeshLoader.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD7203581EEC0E1F00B2C914 /* compatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = compatibility.h; path = ../compatibility.h; sourceTree = "<group>"; };
 		BD7203591EEC0E1F00B2C914 /* Deserialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Deserialize.h; path = ../Deserialize.h; sourceTree = "<group>"; };
@@ -48,7 +51,6 @@
 		BD7203651EEC0E1F00B2C914 /* MeshLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeshLoader.h; path = ../MeshLoader.h; sourceTree = "<group>"; };
 		BD7203661EEC0E1F00B2C914 /* MeshSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshSurface.cpp; path = ../MeshSurface.cpp; sourceTree = "<group>"; };
 		BD7203671EEC0E1F00B2C914 /* MeshSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeshSurface.h; path = ../MeshSurface.h; sourceTree = "<group>"; };
-		BD7203681EEC0E1F00B2C914 /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pch.h; path = ../pch.h; sourceTree = "<group>"; };
 		BD72036A1EEC0E1F00B2C914 /* Tga.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tga.cpp; path = ../Tga.cpp; sourceTree = "<group>"; };
 		BD72036B1EEC0E1F00B2C914 /* Tga.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tga.h; path = ../Tga.h; sourceTree = "<group>"; };
 		BD72036C1EEC0E1F00B2C914 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = types.cpp; path = ../types.cpp; sourceTree = "<group>"; };
@@ -69,6 +71,8 @@
 		BD7203481EEC0E0C00B2C914 = {
 			isa = PBXGroup;
 			children = (
+				BD0E83571FEFF81A005A2F8A /* StringUtil.cpp */,
+				BD0E83581FEFF81A005A2F8A /* StringUtil.h */,
 				BD7203581EEC0E1F00B2C914 /* compatibility.h */,
 				BD7203591EEC0E1F00B2C914 /* Deserialize.h */,
 				BD72035A1EEC0E1F00B2C914 /* File.cpp */,
@@ -85,7 +89,6 @@
 				BD7203651EEC0E1F00B2C914 /* MeshLoader.h */,
 				BD7203661EEC0E1F00B2C914 /* MeshSurface.cpp */,
 				BD7203671EEC0E1F00B2C914 /* MeshSurface.h */,
-				BD7203681EEC0E1F00B2C914 /* pch.h */,
 				BD72036A1EEC0E1F00B2C914 /* Tga.cpp */,
 				BD72036B1EEC0E1F00B2C914 /* Tga.h */,
 				BD72036C1EEC0E1F00B2C914 /* types.cpp */,
@@ -109,7 +112,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD72037E1EEC0E1F00B2C914 /* pch.h in Headers */,
 				BD7203761EEC0E1F00B2C914 /* Img.h in Headers */,
 				BD72036F1EEC0E1F00B2C914 /* Deserialize.h in Headers */,
 				BD7203811EEC0E1F00B2C914 /* Tga.h in Headers */,
@@ -120,6 +122,7 @@
 				BD7203781EEC0E1F00B2C914 /* Log.h in Headers */,
 				BD7203711EEC0E1F00B2C914 /* File.h in Headers */,
 				BD72036E1EEC0E1F00B2C914 /* compatibility.h in Headers */,
+				BD0E835A1FEFF81A005A2F8A /* StringUtil.h in Headers */,
 				BD7203791EEC0E1F00B2C914 /* Logger.h in Headers */,
 				BD7203741EEC0E1F00B2C914 /* Image.h in Headers */,
 			);
@@ -188,6 +191,7 @@
 				BD7203801EEC0E1F00B2C914 /* Tga.cpp in Sources */,
 				BD72037A1EEC0E1F00B2C914 /* MeshLoader.cpp in Sources */,
 				BD7203771EEC0E1F00B2C914 /* Log.cpp in Sources */,
+				BD0E83591FEFF81A005A2F8A /* StringUtil.cpp in Sources */,
 				BD7203701EEC0E1F00B2C914 /* File.cpp in Sources */,
 				BD7203821EEC0E1F00B2C914 /* types.cpp in Sources */,
 			);
@@ -330,6 +334,7 @@
 				BD7203571EEC0E0C00B2C914 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
