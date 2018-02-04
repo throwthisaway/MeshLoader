@@ -6,19 +6,20 @@ namespace Img {
 	// http://www.paulbourke.net/dataformats/tga/
 
 	namespace {
+#pragma pack(push, 1)
 		struct Header {
-			uint8_t  idlength;
-			uint8_t  colourmaptype;
-			uint8_t  datatypecode;
+			uint8_t idlength;
+			uint8_t colourmaptype;
+			uint8_t datatypecode;
 			int16_t colourmaporigin;
 			int16_t colourmaplength;
-			uint8_t  colourmapdepth;
+			uint8_t colourmapdepth;
 			int16_t x_origin;
 			int16_t y_origin;
 			uint16_t width;
 			uint16_t height;
-			uint8_t  bitsperpixel;
-			uint8_t  imagedescriptor;
+			uint8_t bitsperpixel;
+			uint8_t imagedescriptor;
 		};
 
 		Img::TgaDecodeResult ParseHeader(const Header& header, ImgData& image) {
@@ -52,7 +53,7 @@ namespace Img {
 				image.pf = (image.pf == PixelFormat::RGB8) ? PixelFormat::RGBA8 : PixelFormat::BGRA8;
 				const auto size = image.CalcSize();
 				image.data = std::unique_ptr<uint8_t>(new uint8_t[size]);
-				for (size_t i = 0; i < length;) {
+				for (size_t i = 0; i < size;) {
 					*(image.data.get() + i++) = *(p++);
 					*(image.data.get() + i++) = *(p++);
 					*(image.data.get() + i++) = *(p++);

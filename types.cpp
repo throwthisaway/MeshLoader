@@ -120,27 +120,26 @@ namespace MeshLoader {
 		}
 	}
 
-	void UVMaps::CreateSurfaceUVs(index_t n, SurfaceUVMap * uvmap, index_t offset, index_t count, const gsl::span<const Polygon, gsl::dynamic_range>& polygons) {
-		if (uvmap->uv) return;
-		assert(n < count);
+	void UVMaps::CreateSurfaceUVs(index_t n, SurfaceUVMap * srfUVOut, index_t offset, index_t count, const gsl::span<const Polygon, gsl::dynamic_range>& polygons) {
+		if (srfUVOut->uv) return;
 		size_t size;
-		uvmap->uv = new float[size = (UVCOORDS * VERTICESPERPOLY * count)];
-		uvmap->n = count;
-		// TODO:: owns?? better yet gsl::view
-		gsl::span<UV, gsl::dynamic_range> uvMap = gsl::make_span(uv[n].uv, (size_t)uv[n].count);
+		srfUVOut->uv = new float[size = (UVCOORDS * VERTICESPERPOLY * count)];
+		srfUVOut->n = count;
+		gsl::span<UV, gsl::dynamic_range> vertexUVs = gsl::make_span(uv[n].uv, (size_t)uv[n].count);
 		// UVs
 		for (size_t i = offset, j = 0; i < offset + count; ++i) {
 			for (size_t k = 0; k < VERTICESPERPOLY; ++k) {
-
-				auto it = std::lower_bound(std::begin(uvMap), std::end(uvMap), polygons[i].v[k], [](const auto& p1, const auto& p2) { return p1.point == p2; });
-				if (it != std::end(uvMap))
-				{
-					uvmap->uv[j++] = it->u;
-					uvmap->uv[j++] = it->v;
+				auto it = std::lower_bound(std::begin(vertexUVs), std::end(vertexUVs), polygons[i].v[k], [](const auto& p1, const auto& p2) { 
+					return p1.point < p2; });
+				if (it != std::end(vertexUVs)) {
+					assert(it->point == polygons[i].v[k]);
+					srfUVOut->uv[j++] = it->u;
+					srfUVOut->uv[j++] = it->v;
 				}
 				else
 				{
 					// Do nothing...
+					assert(false);
 				}
 			}
 		}
@@ -148,7 +147,7 @@ namespace MeshLoader {
 		for (size_t l = 0; l < dv[n].count; ++l) {
 			DV *pDV = &dv[n].dv[l];
 			if ((pDV->poly >= offset) && (pDV->poly < offset + count)) {
-				float * uv = &uvmap->uv[(pDV->poly - offset) * UVCOORDS * VERTICESPERPOLY];
+				float * uv = &srfUVOut->uv[(pDV->poly - offset) * UVCOORDS * VERTICESPERPOLY];
 				uv += pDV->point*UVCOORDS;
 				*uv = pDV->u; uv++;
 				*uv = pDV->v;
