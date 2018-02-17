@@ -3,39 +3,6 @@
 #include <cmath>
 #include <stdlib.h>
 
-namespace {
-
-	//// TODO:: get rid of this shit...
-	//int cmpUVVert(const void * p1, const void * p2)	{
-	//	// TODO:: point index must be smaller than 2^31 !!!
-	//	return (int)((int64_t)p1 - ((UV*)p2)->point);
-	//}
-
-
-#ifdef GLM
-	const float smooth_limit = glm::radians(89.5f);
-	void SumNormals(std::vector<vec3_t>& v_to_n, size_t v, const vec3_t* const np) {
-		if (std::isnan(v_to_n[v].x))
-			v_to_n[v] = *np;
-		else if (std::acos(glm::dot(glm::normalize(v_to_n[v]), *np)) <= smooth_limit)
-			v_to_n[v] += *np;
-	}
-#else
-	const float smooth_limit = XMConvertToRadians(89.5f);
-	void SumNormals(std::vector<vec3_t>& v_to_n, size_t v, const vec3_t* const np) {
-		auto vnp = XMLoadFloat3(np);
-		if (std::isnan(v_to_n[v].x))
-			v_to_n[v] = *np;
-		else {
-			auto vn = XMLoadFloat3(&v_to_n[v]);
-			float dot;
-			XMStoreFloat(&dot, XMVector3Dot(XMVector4Normalize(vn), vnp));
-			if (std::acos(dot) <= smooth_limit)
-				XMStoreFloat3(&v_to_n[v], vn + vnp);
-		}
-	}
-#endif
-}
 namespace MeshLoader {
 	void Layer::Relocate(size_t size, void* p) {
 		RELOCATEPTRARRAY(size, Sections::Section, p, poly.sections, poly.count);
@@ -48,7 +15,15 @@ namespace MeshLoader {
 	}
 	void Mesh::CalcNormals() {
 		normalsP.reserve(polygons.size());
-		for (const auto& p : polygons) {
+		// vertex back references to polygons
+		std::vector<std::vector<index_t>> vtop;
+		vtop.resize(vertices.size());
+		
+		for (index_t i = 0; i < polygons.size();++i) {
+			const auto& p = polygons[i];
+			vtop[p.v[0]].push_back(i);
+			vtop[p.v[1]].push_back(i);
+			vtop[p.v[2]].push_back(i);
 #ifdef GLM
 			normalsP.push_back(glm::cross(vertices[p.v[0]] - vertices[p.v[2]], vertices[p.v[2]] - vertices[p.v[1]]));
 #else
@@ -60,33 +35,45 @@ namespace MeshLoader {
 			normalsP.push_back(n);
 #endif
 		}
-		// per-surface, per-vertex normals
-		normalsV.resize(polygons.size());
-		for (const auto& l : layers) {
-			for (unsigned int section = 0; section < l.poly.count; ++section) {
-				const size_t end = (size_t)l.poly.sections[section].offset + l.poly.sections[section].count;
-				std::vector<vec3_t> v_to_n(vertices.size(), vec3_t{ NAN, NAN, NAN });
-				// sum the poly normals sharing the same surface
-				for (size_t j = l.poly.sections[section].offset; j < end; ++j) {
-					const auto* np = &normalsP[j];
-					SumNormals(v_to_n, polygons[j].v[0], np);
-					SumNormals(v_to_n, polygons[j].v[1], np);
-					SumNormals(v_to_n, polygons[j].v[2], np);
-				}
-				for (size_t j = l.poly.sections[section].offset; j < end; ++j) {
+		normalsPV.resize(polygons.size(), { vec3_t{}, vec3_t{}, vec3_t{}});
+		for (index_t i = 0; i < polygons.size(); ++i) {
+			const auto& p = polygons[i];
 #ifdef GLM
-					normalsV[j].n[0] = glm::normalize(v_to_n[polygons[j].v[0]]);
-					normalsV[j].n[1] = glm::normalize(v_to_n[polygons[j].v[1]]);
-					normalsV[j].n[2] = glm::normalize(v_to_n[polygons[j].v[2]]);
+			const float smooth_limit = glm::radians(89.5f);
+			const auto& np = normalsP[i];
 #else
-					XMStoreFloat3(&normalsV[j].n[0], XMVector3Normalize(XMLoadFloat3(&v_to_n[polygons[j].v[0]])));
-					XMStoreFloat3(&normalsV[j].n[1], XMVector3Normalize(XMLoadFloat3(&v_to_n[polygons[j].v[1]])));
-					XMStoreFloat3(&normalsV[j].n[2], XMVector3Normalize(XMLoadFloat3(&v_to_n[polygons[j].v[2]])));
+			const float smooth_limit = XMConvertToRadians(89.5f);
+			auto np = XMLoadFloat3(&normalsP[i]);
+#endif
+			for (size_t k = 0; k < VERTICESPERPOLY; ++k) {
+				// get polygons sharing the same vertex
+				for (auto polyIndex : vtop[p.v[k]]) {
+#ifdef GLM
+					if (std::acos(glm::dot(normalsP[polyIndex], np)) <= smooth_limit)
+						normalsPV[i].n[k] += normalsP[polyIndex];
+#else
+					float dot;
+					XMStoreFloat(&dot, XMVector3Dot(XMLoadFloat3(&normalsP[polyIndex]), np));
+					if (std::acos(dot) <= smooth_limit) {
+						normalsPV[i].n[k].x += normalsP[polyIndex].x;
+						normalsPV[i].n[k].y += normalsP[polyIndex].y;
+						normalsPV[i].n[k].z += normalsP[polyIndex].z;
+					}
 #endif
 				}
 			}
-
 		}
+
+		for (auto& n : normalsPV) {
+			for (size_t k = 0; k < VERTICESPERPOLY; ++k) {
+#ifdef GLM
+				n.n[k] = glm::normalize(n.n[k]);
+#else
+				XMStoreFloat3(&n.n[k], XMVector3Normalize(XMLoadFloat3(&n.n[k])));
+#endif
+			}
+		}
+
 	}
 
 	std::vector<std::vector<size_t>> Mesh::VtoP() const {

@@ -33,6 +33,7 @@ namespace MeshLoader {
 	};
 	struct Normal {
 		Normal() {}
+		Normal(const vec3_t& n1, const vec3_t& n2, const vec3_t& n3) : n1(n1), n2(n2), n3(n3) {}
 		union {
 			vec3_t n[VERTICESPERPOLY];
 			struct {
@@ -69,7 +70,7 @@ namespace MeshLoader {
 		gsl::span<const PolyLine, gsl::dynamic_range> lines;
 		gsl::span<const vec3_t, gsl::dynamic_range> vertices;
 		std::vector<vec3_t> normalsP;
-		std::vector<Normal> normalsV;
+		std::vector<Normal> normalsPV; //normal by polygon index for every of it's vertex
 		gsl::span<const Layer, gsl::dynamic_range> layers;
 		gsl::span<const Surface, gsl::dynamic_range> surfaces;
 		UVMaps uvs;
