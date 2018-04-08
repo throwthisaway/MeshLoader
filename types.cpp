@@ -24,53 +24,53 @@ namespace MeshLoader {
 			vtop[p.v[0]].push_back(i);
 			vtop[p.v[1]].push_back(i);
 			vtop[p.v[2]].push_back(i);
-#ifdef GLM
-			normalsP.push_back(glm::cross(vertices[p.v[0]] - vertices[p.v[2]], vertices[p.v[2]] - vertices[p.v[1]]));
-#else
-			auto v1 = XMLoadFloat3(&vertices[p.v[0]]),
-				v2 = XMLoadFloat3(&vertices[p.v[1]]),
-				v3 = XMLoadFloat3(&vertices[p.v[2]]);
-			XMFLOAT3 n;
-			XMStoreFloat3(&n, XMVector3Normalize(XMVector3Cross(XMVectorSubtract(v1, v2), XMVectorSubtract(v3, v2))));
-			normalsP.push_back(n);
-#endif
+//#ifdef GLM
+			normalsP.push_back(glm::normalize(glm::cross(vertices[p.v[0]] - vertices[p.v[1]], vertices[p.v[2]] - vertices[p.v[1]])));
+//#else
+//			auto v1 = XMLoadFloat3(&vertices[p.v[0]]),
+//				v2 = XMLoadFloat3(&vertices[p.v[1]]),
+//				v3 = XMLoadFloat3(&vertices[p.v[2]]);
+//			XMFLOAT3 n;
+//			XMStoreFloat3(&n, XMVector3Normalize(XMVector3Cross(XMVectorSubtract(v1, v2), XMVectorSubtract(v3, v2))));
+//			normalsP.push_back(n);
+//#endif
 		}
-		normalsPV.resize(polygons.size(), { vec3_t{}, vec3_t{}, vec3_t{}});
+		normalsPV.resize(polygons.size());
 		for (index_t i = 0; i < polygons.size(); ++i) {
 			const auto& p = polygons[i];
-#ifdef GLM
+//#ifdef GLM
 			const float smooth_limit = glm::radians(89.5f);
 			const auto& np = normalsP[i];
-#else
-			const float smooth_limit = XMConvertToRadians(89.5f);
-			auto np = XMLoadFloat3(&normalsP[i]);
-#endif
+//#else
+//			const float smooth_limit = XMConvertToRadians(89.5f);
+//			auto np = XMLoadFloat3(&normalsP[i]);
+//#endif
 			for (size_t k = 0; k < VERTICESPERPOLY; ++k) {
 				// get polygons sharing the same vertex
 				for (auto polyIndex : vtop[p.v[k]]) {
-#ifdef GLM
+//#ifdef GLM
 					if (std::acos(glm::dot(normalsP[polyIndex], np)) <= smooth_limit)
 						normalsPV[i].n[k] += normalsP[polyIndex];
-#else
-					float dot;
-					XMStoreFloat(&dot, XMVector3Dot(XMLoadFloat3(&normalsP[polyIndex]), np));
-					if (std::acos(dot) <= smooth_limit) {
-						normalsPV[i].n[k].x += normalsP[polyIndex].x;
-						normalsPV[i].n[k].y += normalsP[polyIndex].y;
-						normalsPV[i].n[k].z += normalsP[polyIndex].z;
-					}
-#endif
+//#else
+//					float dot;
+//					XMStoreFloat(&dot, XMVector3Dot(XMLoadFloat3(&normalsP[polyIndex]), np));
+//					if (std::acos(dot) <= smooth_limit) {
+//						normalsPV[i].n[k].x += normalsP[polyIndex].x;
+//						normalsPV[i].n[k].y += normalsP[polyIndex].y;
+//						normalsPV[i].n[k].z += normalsP[polyIndex].z;
+//					}
+//#endif
 				}
 			}
 		}
 
 		for (auto& n : normalsPV) {
 			for (size_t k = 0; k < VERTICESPERPOLY; ++k) {
-#ifdef GLM
+//#ifdef GLM
 				n.n[k] = glm::normalize(n.n[k]);
-#else
-				XMStoreFloat3(&n.n[k], XMVector3Normalize(XMLoadFloat3(&n.n[k])));
-#endif
+//#else
+//				XMStoreFloat3(&n.n[k], XMVector3Normalize(XMLoadFloat3(&n.n[k])));
+//#endif
 			}
 		}
 

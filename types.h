@@ -2,17 +2,11 @@
 #include "compatibility.h"
 #include <vector>
 #include <gsl/gsl>
-#ifdef GLM
 #include <glm/glm.hpp>
-//using namespace glm;
+
 using vec3_t = glm::vec3;
 using vec2_t = glm::vec2;
-#else
-#include <DirectXMath.h>
-using namespace DirectX;
-using vec3_t = DirectX::XMFLOAT3;
-using vec2_t = DirectX::XMFLOAT2;
-#endif
+
 #include "MeshSurface.h"
 namespace MeshLoader {
 	struct Polygon {
@@ -33,13 +27,13 @@ namespace MeshLoader {
 	};
 	struct Normal {
 		Normal() {}
-		Normal(const vec3_t& n1, const vec3_t& n2, const vec3_t& n3) : n1(n1), n2(n2), n3(n3) {}
-		union {
+		//Normal(const vec3_t& n1, const vec3_t& n2, const vec3_t& n3) : n1(n1), n2(n2), n3(n3) {}
+		//union {
 			vec3_t n[VERTICESPERPOLY];
-			struct {
+			/*struct {
 				vec3_t n1, n2, n3;
 			};
-		};
+		};*/
 	};
 
 	struct DUV {
