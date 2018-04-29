@@ -99,7 +99,7 @@ namespace MeshLoader {
 				for (unsigned int j = 0; j < NUM_MAP_TYPE; j++) {
 					SurfLayer * pLayer = surfaces[surface_section.index].surface_infos[j].layers;
 					while (pLayer && (pLayer->uvmap != count)) {
-						CreateSurfaceUVs((long)pLayer->uvmap, &uvmaps[surface_section.index][pLayer->uvmap], surface_section.offset, surface_section.count, polygons);
+						CreateSurfaceUVs((index_t)pLayer->uvmap, &uvmaps[surface_section.index][pLayer->uvmap], surface_section.offset, surface_section.count, polygons);
 						pLayer = pLayer->next;
 					}
 				}

@@ -46,7 +46,7 @@ size_t CFileReader::Read(void * data, long count)
 	return ::fread(data, count, 1, f);
 }
 
-bool CFileReader::GetLine(_LPTSTR data, long count)
+bool CFileReader::GetLine(_LPTSTR data, int count)
 {
 	if (count <= 0)
 		return false;

@@ -46,7 +46,7 @@ long CFile::Size(void) {
 	if (!IsOpened())
 		throw new CFileNotOpenException(fname);
 	// Hack:
-	long ret, pos = Pos();
+	long ret;
 	Seek(SEEK_BOTTOM, 0);
 	ret = Pos();
 	Seek(SEEK_BEGIN, 0);
