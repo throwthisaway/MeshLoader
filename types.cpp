@@ -45,11 +45,15 @@ namespace MeshLoader {
 //			const float smooth_limit = XMConvertToRadians(89.5f);
 //			auto np = XMLoadFloat3(&normalsP[i]);
 //#endif
+			// for flat shading
+//			normalsPV[i].n[0] = np;
+//			normalsPV[i].n[1] = np;
+//			normalsPV[i].n[2] = np;
 			for (size_t k = 0; k < VERTICESPERPOLY; ++k) {
 				// get polygons sharing the same vertex
 				for (auto polyIndex : vtop[p.v[k]]) {
 //#ifdef GLM
-					if (std::acos(glm::dot(normalsP[polyIndex], np)) <= smooth_limit)
+					if (polyIndex == i || std::acos(glm::dot(normalsP[polyIndex], np)) <= smooth_limit)
 						normalsPV[i].n[k] += normalsP[polyIndex];
 //#else
 //					float dot;

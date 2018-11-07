@@ -21,7 +21,7 @@ namespace Img {
 			uint8_t bitsperpixel;
 			uint8_t imagedescriptor;
 		};
-
+#pragma pack(pop)
 		Img::TgaDecodeResult ParseHeader(const Header& header, ImgData& image) {
 			image.width = header.width; image.height = header.height;
 			image.bytesPerPixel = header.bitsperpixel >> 3;
