@@ -55,6 +55,7 @@
 		BD72036B1EEC0E1F00B2C914 /* Tga.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tga.h; path = ../Tga.h; sourceTree = "<group>"; };
 		BD72036C1EEC0E1F00B2C914 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = types.cpp; path = ../types.cpp; sourceTree = "<group>"; };
 		BD72036D1EEC0E1F00B2C914 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = types.h; path = ../types.h; sourceTree = "<group>"; };
+		BDCD08F121E110AC00F37C01 /* SIMDTypeAliases.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SIMDTypeAliases.h; path = ../SIMDTypeAliases.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +72,7 @@
 		BD7203481EEC0E0C00B2C914 = {
 			isa = PBXGroup;
 			children = (
+				BDCD08F121E110AC00F37C01 /* SIMDTypeAliases.h */,
 				BD0E83571FEFF81A005A2F8A /* StringUtil.cpp */,
 				BD0E83581FEFF81A005A2F8A /* StringUtil.h */,
 				BD7203581EEC0E1F00B2C914 /* compatibility.h */,

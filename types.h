@@ -2,10 +2,7 @@
 #include "compatibility.h"
 #include <vector>
 #include <gsl/gsl>
-#include <glm/glm.hpp>
-
-using vec3_t = glm::vec3;
-using vec2_t = glm::vec2;
+#include "SIMDTypeAliases.h"
 
 #include "MeshSurface.h"
 namespace MeshLoader {

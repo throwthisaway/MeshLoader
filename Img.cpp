@@ -1,6 +1,27 @@
 #include "Img.h"
 #include "Log.h"
 namespace Img {
+	uint8_t BytesPerPixel(PixelFormat pf) {
+		switch (pf) {
+			case PixelFormat::BGR8:
+			case PixelFormat::RGB8:
+				return 3;
+			case PixelFormat::BGRA8:
+			case PixelFormat::RGBA8:
+				return 4;
+			case PixelFormat::Greyscale8:
+				return 1;
+			case PixelFormat::RGBAF32:
+				return 16;
+			case PixelFormat::RGBAF16:
+				return 8;
+			case PixelFormat::Unknown:
+			default:
+				assert(false);
+
+		}
+		return 0xff;
+	}
 	void ImgData::ChangeComponentOrder() {
 		if (bytesPerPixel < 3) return;
 		// BGR<->RGB, BGRA<->RGBA
