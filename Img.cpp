@@ -1,5 +1,7 @@
 #include "Img.h"
 #include "Log.h"
+#include <assert.h>
+
 namespace Img {
 	uint8_t BytesPerPixel(PixelFormat pf) {
 		switch (pf) {
