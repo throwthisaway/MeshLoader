@@ -22,6 +22,26 @@ namespace Img {
 		}
 		return 0xff;
 	}
+
+	ComponentType GetComponentType(PixelFormat pf) {
+		switch (pf) {
+			case PixelFormat::BGR8:
+			case PixelFormat::RGB8:
+			case PixelFormat::BGRA8:
+			case PixelFormat::RGBA8:
+			case PixelFormat::Greyscale8:
+				return ComponentType::Byte;
+			case PixelFormat::RGBAF32:
+				return ComponentType::Float;
+			case PixelFormat::RGBAF16:
+				return ComponentType::HalfFloat;
+			case PixelFormat::Unknown:
+			default:
+				assert(false);
+
+		}
+		return ComponentType::Unknown;
+	}
 	void ImgData::ChangeComponentOrder() {
 		if (bytesPerPixel < 3) return;
 		// BGR<->RGB, BGRA<->RGBA
