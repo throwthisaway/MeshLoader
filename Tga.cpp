@@ -42,7 +42,7 @@ namespace Img {
 			return TgaDecodeResult::Ok;
 		}
 
-		Img::TgaDecodeResult LoaduTGA(uint8_t* p, size_t length, ImgData& image, bool expand24To32) {
+		Img::TgaDecodeResult LoaduTGA(const uint8_t* p, size_t length, ImgData& image, bool expand24To32) {
 			const auto size = image.CalcSize();
 			if (length - sizeof(Header) < size) {
 				Log::CLog::Write("LoaduTGA: Insufficient size...\r\n");
@@ -66,7 +66,7 @@ namespace Img {
 			return Img::TgaDecodeResult::Ok;
 		}
 
-		Img::TgaDecodeResult LoadcTGA(uint8_t* p, ImgData& image, bool expand24To32) {
+		Img::TgaDecodeResult LoadcTGA(const uint8_t* p, ImgData& image, bool expand24To32) {
 			assert(image.bytesPerPixel == 3 || image.bytesPerPixel == 4 || image.bytesPerPixel == 1);
 			p += sizeof(Header);
 			const auto origBytesPerPixel = image.bytesPerPixel;
@@ -126,7 +126,7 @@ namespace Img {
 		}
 	}
 
-	TgaDecodeResult DecodeTGA(uint8_t* p, size_t length, ImgData& image, bool expand24To32) {
+	TgaDecodeResult DecodeTGA(const uint8_t* p, size_t length, ImgData& image, bool expand24To32) {
 		Header *header = (Header*)p;
 		TgaDecodeResult result = ParseHeader(*header, image);
 		if (result != TgaDecodeResult::Ok) {
