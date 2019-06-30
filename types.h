@@ -24,6 +24,11 @@ namespace MeshLoader {
 	};
 	struct Normal {
 		Normal() {}
+		Normal(float val) {
+			for (auto& v : n) {
+				v = vec3_t(val);
+			}
+		}
 		//Normal(const vec3_t& n1, const vec3_t& n2, const vec3_t& n3) : n1(n1), n2(n2), n3(n3) {}
 		//union {
 			vec3_t n[VERTICESPERPOLY];

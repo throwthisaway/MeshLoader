@@ -35,7 +35,7 @@ namespace MeshLoader {
 //			normalsP.push_back(n);
 //#endif
 		}
-		normalsPV.resize(polygons.size());
+		normalsPV.resize(polygons.size(), {0.f});
 		for (index_t i = 0; i < polygons.size(); ++i) {
 			const auto& p = polygons[i];
 //#ifdef GLM
