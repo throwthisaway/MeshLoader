@@ -12,7 +12,7 @@ namespace Img {
 		uint16_t width, height;
 		uint8_t bytesPerPixel;
 		PixelFormat pf;
-		inline size_t CalcSize() const { return width * height * bytesPerPixel; }
+		inline size_t CalcSize() const { return (size_t)width * height * bytesPerPixel; }
 		void ChangeComponentOrder();
 	};
 
