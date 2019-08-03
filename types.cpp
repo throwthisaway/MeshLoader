@@ -3,6 +3,14 @@
 #include <cmath>
 #include <stdlib.h>
 
+static void ChangeOrientation(gsl::span<const MeshLoader::Polygon, gsl::dynamic_range>& polygons) {
+	for (MeshLoader::index_t i = 0; i < polygons.size(); ++i) {
+		auto& p = const_cast<MeshLoader::Polygon&>(polygons[i]);
+		auto t = p.v1;
+		p.v1 = p.v3; p.v3 = t;
+	}
+}
+
 namespace MeshLoader {
 	void Layer::Relocate(size_t size, void* p) {
 		RELOCATEPTRARRAY(size, Sections::Section, p, poly.sections, poly.count);
@@ -10,6 +18,7 @@ namespace MeshLoader {
 	}
 
 	void Mesh::Setup() {
+		//ChangeOrientation(polygons);
 		CalcNormals();
 		uvs.Setup(layers, surfaces, polygons);
 	}
