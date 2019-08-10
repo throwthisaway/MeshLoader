@@ -61,7 +61,6 @@ namespace MeshLoader {
 
 	struct Mesh {
 		void Setup();
-
 		gsl::span<const Polygon, gsl::dynamic_range> polygons;
 		gsl::span<const PolyLine, gsl::dynamic_range> lines;
 		gsl::span<const float3, gsl::dynamic_range> vertices;
