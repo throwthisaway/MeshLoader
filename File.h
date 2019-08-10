@@ -1,5 +1,6 @@
 #pragma once
 #include <stdio.h>
+#include "Platform.h"
 #include "compatibility.h"
 #ifdef PLATFORM_WIN
 #include <direct.h>

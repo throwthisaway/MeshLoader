@@ -16,7 +16,7 @@ namespace {
 	}
 	inline void LoadVertices(const uint8_t* ptr, index_t count, Mesh& mesh) {
 		assert((size_t)ptr % sizeof(size_t) == 0);
-		mesh.vertices = gsl::make_span(reinterpret_cast<const vec3_t*>(ptr), count);
+		mesh.vertices = gsl::make_span(reinterpret_cast<const float3*>(ptr), count);
 	}
 	inline void LoadSurfaces(const uint8_t* ptr, index_t size, index_t elements, Mesh& mesh) {
 		assert((size_t)ptr % sizeof(size_t) == 0);
