@@ -48,7 +48,7 @@ namespace MeshLoader {
 		for (index_t i = 0; i < polygons.size(); ++i) {
 			const auto& p = polygons[i];
 //#ifdef GLM
-			const float smooth_limit = glm::radians(89.5f);
+			constexpr float smooth_limit = glm::radians(89.5f);
 			const auto& np = normalsP[i];
 //#else
 //			const float smooth_limit = XMConvertToRadians(89.5f);

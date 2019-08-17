@@ -9,6 +9,10 @@ namespace {
 	inline void LoadPolygons(const uint8_t* ptr, index_t count, Mesh& mesh) {
 		assert((size_t)ptr % sizeof(size_t) == 0);
 		mesh.polygons = gsl::make_span(reinterpret_cast<const Polygon*>(ptr), count);
+		//for (int i = 0; i <mesh.polygons.size(); ++i) {
+		//	auto& p = const_cast<Polygon&>(mesh.polygons[i]);
+		//	std::swap(p.v3, p.v1);
+		//}
 	}
 	inline void LoadLines(const uint8_t* ptr, index_t count, Mesh& mesh) {
 		assert((size_t)ptr % sizeof(size_t) == 0);
@@ -17,6 +21,10 @@ namespace {
 	inline void LoadVertices(const uint8_t* ptr, index_t count, Mesh& mesh) {
 		assert((size_t)ptr % sizeof(size_t) == 0);
 		mesh.vertices = gsl::make_span(reinterpret_cast<const float3*>(ptr), count);
+		//for (int i = 0; i <mesh.vertices.size(); ++i) {
+		//	auto& v = const_cast<float3&>(mesh.vertices[i]);
+		//	v.z = -v.z;
+		//}
 	}
 	inline void LoadSurfaces(const uint8_t* ptr, index_t size, index_t elements, Mesh& mesh) {
 		assert((size_t)ptr % sizeof(size_t) == 0);
@@ -36,6 +44,12 @@ namespace {
 		mesh.uvs.dv = reinterpret_cast<const _DVMap*>(ptr);
 		for (size_t i = 0; i < elements; ++i)
 			const_cast<_DVMap&>(mesh.uvs.dv[i]).Relocate(size, const_cast<_DVMap*>(mesh.uvs.dv));
+		//for (int j = 0; j <mesh.uvs.count; ++j)
+		//	for (int i = 0; i < mesh.uvs.dv[j].count; ++i) {
+		//		auto& dv = const_cast<DV&>(mesh.uvs.dv[j].dv[i]);
+		//		if (dv.point == 2) dv.point = 0;
+		//		else if (dv.point == 0) dv.point = 2;
+		//	}
 	}
 	inline void LoadLayers(const uint8_t* ptr, index_t size, index_t elements, Mesh& mesh) {
 		assert((size_t)ptr % sizeof(size_t) == 0);
